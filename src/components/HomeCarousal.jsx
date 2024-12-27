@@ -50,8 +50,8 @@ const HomeCarousal = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute top-50% left-5 bg-red border-none" />
-        <CarouselNext className="absolute top-50% right-5 bg-red border-none" />
+        <CarouselPrevious className="absolute top-50% left-2 bg-red border-none text-white" />
+        <CarouselNext className="absolute top-50% right-2 bg-red border-none text-white" />
       </Carousel>
     </div>
   );

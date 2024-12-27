@@ -137,7 +137,7 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="/menu#"
+        path="/menu"
         element={
           <ErrorBoundaryWrapper>
             <Suspense fallback={<div>Loading Menu...</div>}>

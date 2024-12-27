@@ -53,8 +53,8 @@ const Header = () => {
     <div className="relative">
       <div className="container bg-white dark:bg-black text-textLight dark:text-textDark py-3 md:py-5 lg:py-8 sticky">
         {/* Bucket icon  */}
-        <div className="absolute block lg:hidden">
-          <button className="absolute mt-12 right-0 cursor-pointer">
+        <div className="block lg:hidden">
+          <button className="absolute mt-12 right-5 md:right-12 cursor-pointer">
             <img
               src="/bucket image.svg"
               alt="bucket"
@@ -156,7 +156,7 @@ const Header = () => {
 
       {/* Sidebar Menu */}
       <div
-        className={`fixed top-0 left-0 min-h-screen w-72 bg-bgLight dark:bg-bgButtonDark z-40 p-5 flex flex-col justify-start items-start gap-3 transform transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 h-screen w-72 bg-bgLight dark:bg-bgButtonDark z-40 p-5 flex flex-col justify-start items-start gap-3 transform transition-all duration-300 ease-in-out overflow-y-auto ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
