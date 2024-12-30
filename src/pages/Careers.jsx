@@ -1,9 +1,348 @@
-import React from "react";
-import { WithAuthProtection } from "../components/index";
+import React, { useState } from "react";
+import {
+  WithAuthProtection,
+  ValuesCard,
+  Input,
+  Select,
+} from "../components/index";
+import { BsPersonFill } from "react-icons/bs";
+import { HiLocationMarker } from "react-icons/hi";
+import { PiBagFill } from "react-icons/pi";
+import { IoIosStar } from "react-icons/io";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+
 const Careers = () => {
+  const valuesData = [
+    {
+      id: 1,
+      img: "/asset 27.png",
+      title: "Believe in All People",
+      description:
+        "We trust each other and believe everyone can be their best self here. Our generous nature shines through everything we do.",
+    },
+    {
+      id: 2,
+      img: "/asset 28.png",
+      title: "Recognize",
+      description:
+        "We look for ways to recognize our people for their courage and celebrate all achievements – big and small. We never forget to have fun doing it!",
+    },
+    {
+      id: 3,
+      img: "/asset 29.png",
+      title: "Run Great Restaurants",
+      description:
+        "We are passionate about our food and take pride in creating a great experience for our guests. We do things the right way, even when no one is looking.",
+    },
+    {
+      id: 4,
+      img: "/asset 30.png",
+      title: "Go for Breakthrough",
+      description:
+        "We always strive to do and be our best. We work with a sense of urgency and ownership in our brand. We take smart risks to achieve amazing results!",
+    },
+    {
+      id: 5,
+      img: "/asset 31.png",
+      title: "Build Know How",
+      description:
+        "We always seek to learn more and share our know how with others. Everyone can grow here.",
+    },
+    {
+      id: 6,
+      img: "/asset 32.png",
+      title: "Work as a Team",
+      description:
+        "We help and support each other to grow and achieve more. We benefit from healthy debate to get the best outcomes. We win together as the KFC family!",
+    },
+  ];
   return (
-    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5">
-      Careers
+    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-16 min-h-[88vh]">
+      <div className="container">
+        <div className="w-full bg-red">
+          <video src="/kfc_video.mp4" controls className="w-full"></video>
+        </div>
+        <h1 className="text-4xl font-bold text-center mt-16">Our Values</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-12 gap-6">
+          {valuesData.map((data) => {
+            return (
+              <ValuesCard
+                key={data.id}
+                img={data.img}
+                title={data.title}
+                description={data.description}
+              />
+            );
+          })}
+        </div>
+        <h1 className="text-3xl font-bold text-center">Careers</h1>
+        <div className="max-w-[1000px] mx-auto my-12">
+          <h1 className="font-bold text-2xl flex justify-start items-center gap-2">
+            <BsPersonFill /> Personnel Info
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <Input
+              type="text"
+              title="FULL NAME"
+              label="FULL NAME"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="date"
+              title="Date of Birth"
+              label="Date of Birth"
+              placeholder=""
+              required="true"
+              isDateInput="true"
+            />
+            <Input
+              type="text"
+              title="Country of Birth"
+              label="Country of Birth"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="City of Birth"
+              label="City of Birth"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="number"
+              title="CNIC"
+              label="CNIC"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="date"
+              title="CNIC Expiry Date"
+              label="CNIC Expiry Date"
+              placeholder=""
+              required="true"
+              isDateInput="true"
+            />
+            <Select
+              title="Marital Status"
+              required="true"
+              options={["Married", "Un married"]}
+            />
+            <Select
+              title="Gender"
+              required="false"
+              options={["Male", "Female", "Others"]}
+            />
+            <Input
+              type="text"
+              title="Religion"
+              label="Religion"
+              placeholder="Religion"
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Disability"
+              label="Disability"
+              placeholder=""
+              required="true"
+            />
+          </div>
+        </div>
+        <div className="max-w-[1000px] mx-auto my-12">
+          <h1 className="font-bold text-2xl flex justify-start items-center gap-2">
+            <HiLocationMarker /> Address
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <Input
+              type="tel"
+              title="Phone Number (3xxxxxxxxx)*"
+              label="Phone Number (3xxxxxxxxx)*"
+              placeholder=""
+              required="true"
+              isPhoneInput="true"
+            />
+            <Input
+              type="text"
+              title="Address"
+              label="Address"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Country"
+              label="Country"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="State/Province"
+              label="State/Province"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="City"
+              label="City"
+              placeholder=""
+              required="true"
+            />
+          </div>
+        </div>
+        <div className="max-w-[1000px] mx-auto my-12">
+          <h1 className="font-bold text-2xl flex justify-start items-center gap-2">
+            <PiBagFill /> Job Posting
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <Input
+              type="text"
+              title="How were you refered to us?"
+              label="How were you refered to us?"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="City Applying For"
+              label="City Applying For"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Position You are Applying For"
+              label="Position You are Applying For"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Type of Shift (Only for instore)"
+              label="Type of Shift (Only for instore)"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Type of Employement (Only for instore)"
+              label="Type of Employement (Only for instore)"
+              placeholder=""
+              required="true"
+            />
+          </div>
+        </div>
+        <div className="max-w-[1000px] mx-auto my-12">
+          <h1 className="font-bold text-2xl flex justify-start items-center gap-2">
+            Qualification
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <Input
+              type="text"
+              title="Degree"
+              label="Degree"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Majors"
+              label="Majors"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Qualification Year"
+              label="Qualification Year"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Place of Tuition"
+              label="Place of Tuition"
+              placeholder=""
+              required="true"
+            />
+          </div>
+        </div>
+        <div className="max-w-[1000px] mx-auto my-12">
+          <h1 className="font-bold text-2xl flex justify-start items-center gap-2">
+            <IoIosStar /> Experience
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <Input
+              type="text"
+              title="Total Years of Experience"
+              label="Total Years of Experience"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Recent Position"
+              label="Recent Position"
+              placeholder=""
+              required="true"
+            />
+            <Input
+              type="text"
+              title="Recent Company"
+              label="Recent Company"
+              placeholder=""
+              required="true"
+            />
+          </div>
+        </div>
+        <div className="max-w-[1000px] mx-auto my-12 flex flex-col justify-start items-start gap-8">
+          <h1 className="text-3xl font-bold text-center w-full">
+            Applicant agreement
+          </h1>
+          <p>
+            I certify that all information provided in this application is true
+            and complete. I understand that any false information or omission
+            may disqualify me from further consideration for employment and may
+            result in my dismissal If discovered at a later date. I authorize
+            and agree to cooperate in a thorough investigation of all statements
+            made herein and other matters relating to my background and
+            qualification. I understand that any investigation conducted may
+            include a request for employment, educational and criminal history.
+            I authorize any person, school, current and former employer,
+            consumer reporting agency and any other organization or agency to
+            provide information relevant to such investigation and I hereby
+            release all persons and corporations requesting or supplying
+            information pursuant to such investigation from all liability or
+            responsibility to me for doing so. I understand that I have the
+            right to make a written request within a reasonable period of time
+            for complete disclosure of the nature and scope of any
+            investigation. I further authorize any physician or hospital to
+            release any information which may be necessary to determine my
+            ability to perform the job for which I am being considered or any
+            future job in the event that I am hired. I UNDERSTAND THAT THIS
+            APPLICATION OR SUBSEQUENT EMPLOYMENT DOES NOT CREATE A CONTRACT OF
+            EMPLOYMENT NOR GUARANTEE EMPLOYMENT FOR ANY DEFINITE PERIOD OF TIME.
+          </p>
+          <div className="flex justify-start items-center gap-2">
+            <Checkbox className="rounded-lg" />
+            <p className="text-sm">
+              Sign up now to avail exclusive rewards & discounts
+            </p>
+          </div>
+          <Button
+            disbled
+            className="w-full md:w-[50%] mx-auto bg-red text-white"
+            disabled={true}
+          >
+            Apply
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

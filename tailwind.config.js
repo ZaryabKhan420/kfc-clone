@@ -12,6 +12,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Roboto Condensed", "sans-serif"], // Replace 'Roboto' with your font name
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

@@ -46,7 +46,12 @@ const HomeCarousal = () => {
         <CarouselContent>
           {images.map((data) => (
             <CarouselItem key={data.id}>
-              <img src={data.url} alt={"KFC"} loading="lazy" />
+              <img
+                src={data.url}
+                alt={"KFC"}
+                loading="lazy"
+                className="w-full"
+              />
             </CarouselItem>
           ))}
         </CarouselContent>

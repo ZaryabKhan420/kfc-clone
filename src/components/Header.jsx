@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { RiMenu2Line } from "react-icons/ri";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [theme, setTheme] = useState("light");
+  const navigate = useNavigate();
 
   const specialPages = [
     {
@@ -112,7 +113,12 @@ const Header = () => {
               loading="lazy"
               className="w-10 hidden lg:block cursor-pointer"
             />
-            <Button className="bg-red text-textDark">LOGIN</Button>
+            <Button
+              className="bg-red text-textDark"
+              onClick={() => navigate("/login")}
+            >
+              LOGIN
+            </Button>
           </div>
         </div>
 
@@ -161,7 +167,12 @@ const Header = () => {
         }`}
       >
         <div>
-          <Button className="bg-red text-textDark">LOGIN</Button>
+          <Button
+            className="bg-red text-textDark"
+            onClick={() => navigate("/login")}
+          >
+            LOGIN
+          </Button>
         </div>
         <div className="w-full flex justify-end rounded-full">
           <div className="dark:bg-black bg-white rounded-full flex">

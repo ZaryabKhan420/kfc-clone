@@ -7,10 +7,10 @@ const PrivacyPolicy = () => {
   return (
     <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5">
       <div className="container py-12 heading">
-        <div className="flex justify-between items-start">
+        <div className="flex justify-between items-start flex-wrap">
           <button
             onClick={() => navigate("/")}
-            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center"
+            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:bg-red transition-all duration-300 ease-linear"
           >
             <MdKeyboardArrowLeft size={20} />
           </button>

@@ -9,7 +9,12 @@ import BestSellerComponent from "./BestSellerComponent";
 import TopDealsComponent from "./TopDealsComponent";
 import ContactCardOne from "./ContactCardOne";
 import ContactCardTwo from "./ContactCardTwo";
-
+import HistoryBucket from "./HistoryBucket";
+import PakistanFactsCard from "./PakistanFactsCard";
+import KFCSponsoredWork from "./KFCSponsoredWork";
+import ValuesCard from "./ValuesCard";
+import Input from "./Input";
+import Select from "./Select";
 export {
   Header,
   Footer,
@@ -22,4 +27,10 @@ export {
   TopDealsComponent,
   ContactCardOne,
   ContactCardTwo,
+  HistoryBucket,
+  PakistanFactsCard,
+  KFCSponsoredWork,
+  ValuesCard,
+  Input,
+  Select,
 };

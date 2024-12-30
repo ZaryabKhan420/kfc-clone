@@ -3,6 +3,7 @@ import "./App.css";
 const Header = React.lazy(() => import("./components/Header.jsx"));
 const Footer = React.lazy(() => import("./components/Footer.jsx"));
 import { Outlet, useLocation } from "react-router-dom";
+import ErrorBoundaryWrapper from "./errorBoundary/ErrorBoundaryWrapper";
 
 function App() {
   const location = useLocation();
@@ -16,14 +17,16 @@ function App() {
   ].includes(location.pathname);
 
   return (
-    <div>
+    <div className="font-Roboto Condensed">
       <div>
-        <Suspense fallback={<div>Loading Header...</div>}>
-          <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md dark:bg-black">
-            {/* Add padding and shadow for better visibility */}
-            <Header />
-          </div>
-        </Suspense>
+        <ErrorBoundaryWrapper>
+          <Suspense fallback={<div>Loading Header...</div>}>
+            <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md dark:bg-black">
+              {/* Add padding and shadow for better visibility */}
+              <Header />
+            </div>
+          </Suspense>
+        </ErrorBoundaryWrapper>
       </div>
       {/* Add top padding to prevent content overlap */}
       <div className="pt-[60px]">
@@ -31,11 +34,13 @@ function App() {
       </div>
       {showFooter && (
         <div className="bg-bgLight dark:bg-bgButtonDark">
-          <Suspense fallback={<div>Loading Footer...</div>}>
-            <div className="container">
-              <Footer />
-            </div>
-          </Suspense>
+          <ErrorBoundaryWrapper>
+            <Suspense fallback={<div>Loading Footer...</div>}>
+              <div className="container">
+                <Footer />
+              </div>
+            </Suspense>
+          </ErrorBoundaryWrapper>
         </div>
       )}
     </div>

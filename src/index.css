@@ -66,17 +66,21 @@
   }
 }
 
+* {
+  font-family: "poppins" !important;
+}
+
 .heading {
-  font-family: "Roboto Condensed", serif;
+  font-family: "Roboto Condensed";
+}
+
+#root {
+  font-family: "Roboto Condensed";
 }
 
 ::-webkit-scrollbar {
   width: 5px !important;
   height: 5px !important;
-}
-
-::-webkit-scrollbar-track {
-  background: #ced0d2 !important;
 }
 
 /* Scrollbar thumb */
