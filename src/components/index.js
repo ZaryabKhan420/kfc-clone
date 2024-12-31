@@ -15,6 +15,7 @@ import KFCSponsoredWork from "./KFCSponsoredWork";
 import ValuesCard from "./ValuesCard";
 import Input from "./Input";
 import Select from "./Select";
+import LocationCard from "./LocationCard";
 export {
   Header,
   Footer,
@@ -33,4 +34,5 @@ export {
   ValuesCard,
   Input,
   Select,
+  LocationCard,
 };

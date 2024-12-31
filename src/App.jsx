@@ -17,7 +17,7 @@ function App() {
   ].includes(location.pathname);
 
   return (
-    <div className="font-Roboto Condensed">
+    <div className="font-Roboto Condensed bg-bgLight dark:bg-bgButtonDark">
       <div>
         <ErrorBoundaryWrapper>
           <Suspense fallback={<div>Loading Header...</div>}>

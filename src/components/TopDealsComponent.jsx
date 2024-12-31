@@ -1,8 +1,22 @@
 import React from "react";
 import { Button } from "./ui/button";
-const TopDealsComponent = ({ img, title, description, price }) => {
+import { LuHeart } from "react-icons/lu";
+const TopDealsComponent = ({
+  img,
+  title,
+  description,
+  price,
+  className = "",
+  ...props
+}) => {
   return (
-    <div className="relative w-[17rem] sm:w-[19rem] h-[28rem] bg-white  dark:bg-bgButtonDark rounded-lg p-4 heading flex flex-col justify-between items-start group cursor-pointer">
+    <div
+      className={`relative w-[17rem] sm:w-[19rem] h-[28rem] bg-white  dark:bg-bgButtonDark rounded-lg p-4 heading flex flex-col justify-between items-start group cursor-pointer ${className}`}
+      {...props}
+    >
+      <div className="absolute top-2 right-2">
+        <LuHeart className="text-red text-2xl" />
+      </div>
       <div className="flex justify-center items-center h-[16rem] w-full">
         <img
           src={img}
@@ -12,16 +26,16 @@ const TopDealsComponent = ({ img, title, description, price }) => {
         />
       </div>
       <div className="flex flex-col justify-start items-start gap-1">
-        <h1 className="text-xl font-bold mt-8">{title}</h1>
-        <p>{description}</p>
-        <p className="font-bold mt-2">Rs {price}</p>
+        <h1 className="text-xl font-bold mt-8 h-8 ">{title}</h1>
+        <p className="h-12 ">{description}</p>
+        <p className="font-bold mt-2 h-8 ">Rs {price}</p>
       </div>
       <div className="absolute top-0 left-[50%] translate-x-[-50%] flex justify-center items-start gap-2">
         <div className="w-4 h-5 bg-red"></div>
         <div className="w-4 h-5 bg-red"></div>
         <div className="w-4 h-5 bg-red"></div>
       </div>
-      <Button className="bg-red text-white font-bold absolute bottom-[-4%] left-[50%] translate-x-[-50%]">
+      <Button className="bg-red text-white font-bold absolute bottom-[-4%] left-[50%] translate-x-[-50%] border border-red hover:bg-white hover:text-red transition-all duration-300 ease-linear hover:scale-105">
         + ADD TO BUCKET
       </Button>
     </div>

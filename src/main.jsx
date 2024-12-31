@@ -23,6 +23,7 @@ const TermsConditions = React.lazy(() => import("./pages/TermsConditions.jsx"));
 const TrackOrder = React.lazy(() => import("./pages/TrackOrder.jsx"));
 const NotFound = React.lazy(() => import("./pages/NotFound.jsx"));
 const Login = React.lazy(() => import("./pages/Login.jsx"));
+const Bucket = React.lazy(() => import("./pages/Bucket.jsx"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -162,6 +163,16 @@ const router = createBrowserRouter(
           <ErrorBoundaryWrapper>
             <Suspense fallback={<div>Loading Login...</div>}>
               <Login />
+            </Suspense>
+          </ErrorBoundaryWrapper>
+        }
+      />
+      <Route
+        path="/bucket"
+        element={
+          <ErrorBoundaryWrapper>
+            <Suspense fallback={<div>Loading Bucket...</div>}>
+              <Bucket />
             </Suspense>
           </ErrorBoundaryWrapper>
         }

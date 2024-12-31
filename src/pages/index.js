@@ -11,6 +11,7 @@ import TermsConditions from "./TermsConditions.jsx";
 import TrackOrder from "./TrackOrder.jsx";
 import NotFound from "./NotFound.jsx";
 import Login from "./Login.jsx";
+import Bucket from "./Bucket.jsx";
 
 export {
   About,
@@ -26,4 +27,5 @@ export {
   TrackOrder,
   NotFound,
   Login,
+  Bucket,
 };

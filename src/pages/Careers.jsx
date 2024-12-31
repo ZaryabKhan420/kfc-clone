@@ -58,7 +58,7 @@ const Careers = () => {
     },
   ];
   return (
-    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-16 min-h-[88vh]">
+    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-16 min-h-[100vh]">
       <div className="container">
         <div className="w-full bg-red">
           <video src="/kfc_video.mp4" controls className="w-full"></video>

@@ -87,3 +87,48 @@
 ::-webkit-scrollbar-thumb {
   background-color: #333 !important;
 }
+
+.bucket-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -15%;
+  width: 0;
+  height: 0;
+  border-top: 5px solid #960824;
+  border-left: 5px solid transparent;
+  border-right: 5px solid #960824;
+  border-bottom: 5px solid transparent;
+}
+
+.bucket-card::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -15%;
+  width: 0;
+  height: 0;
+  border-top: 5px solid #960824;
+  border-left: 5px solid #960824;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+.scrollable-container {
+  overflow-y: auto;
+  height: calc(100vh - 4rem); /* Adjust based on your layout */
+  position: relative;
+}
+
+/* Hide the dropdown arrow in most browsers */
+select {
+  -webkit-appearance: none; /* Safari and Chrome */
+  -moz-appearance: none; /* Firefox */
+  appearance: none; /* Standard syntax */
+  background-image: none; /* Remove the default arrow */
+  padding-right: 20px; /* Add space to avoid clipping */
+}
+
+/* For webkit browsers (like Chrome) */
+select::-ms-expand {
+  display: none; /* Hide arrow in Internet Explorer */
+}
