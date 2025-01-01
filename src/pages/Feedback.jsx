@@ -3,7 +3,18 @@ import { WithAuthProtection, Input, Select } from "../components/index";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useForm, Controller } from "react-hook-form";
 const Feedback = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+    control,
+    reset,
+  } = useForm();
+
   const navigate = useNavigate();
   const kfcLocations = [
     "KFC Karachi (Shahrah-e-Faisal)",
@@ -117,8 +128,33 @@ const Feedback = () => {
     "KFC Malakand (Mingora Road)",
   ];
 
+  const handleFeedbackSubmit = (data) => {
+    console.log(data);
+    reset();
+  };
+
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+    if (value.length < 10) {
+      setError("phone", {
+        type: "Length Error",
+        message: "Phone Number must be exactly 10 digits",
+      });
+    }
+    if (value.length === 10) {
+      clearErrors("phone");
+    }
+    e.target.value = value;
+  };
+
   return (
-    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5 min-h-[100vh] ">
+    <form
+      className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5 min-h-[100vh] "
+      onSubmit={handleSubmit(handleFeedbackSubmit)}
+    >
       <div className="container py-12 heading">
         <div className="flex justify-between items-start heading flex-wrap">
           <button
@@ -150,83 +186,155 @@ const Feedback = () => {
                 title="FULL NAME"
                 label="FULL NAME"
                 placeholder=""
-                required="true"
+                required={true}
+                {...register("fullName", {
+                  required: "Full Name must be required",
+                })}
               />
-              <Input
-                type="tel"
-                title="PHONE NUMBER (3xxxxxxxxx)"
-                label="PHONE NUMBER (3xxxxxxxxx)"
-                placeholder=""
-                required="true"
-                isPhoneInput="true"
-              />
+              <div>
+                <Input
+                  type="text"
+                  title="Phone Number (3xxxxxxxxx)"
+                  label="Phone Number (3xxxxxxxxx)"
+                  required={true}
+                  placeholder=""
+                  isPhoneInput={true}
+                  {...register("phone", {
+                    required: "Phone Number is required",
+                    pattern: {
+                      value: /^\d{10}$/,
+                      message: "Phone Number must be exactly 10 digits",
+                    },
+                    onChange: (e) => {
+                      handlePhoneChange(e);
+                    },
+                  })}
+                />
+                {errors?.phone && (
+                  <p className="text-red text-sm">{errors.phone.message}</p>
+                )}
+              </div>
             </div>
-            <Input
-              type="email"
-              title="Email"
-              label="Email"
-              placeholder=""
-              required="true"
-            />
+            <div className="w-full">
+              <Input
+                type="email"
+                title="Email"
+                label="Email"
+                required={true}
+                placeholder=""
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Invalid email format",
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
+            </div>
             <Input
               type="text"
               title="Order ID"
               label="Order ID"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("orderId", {
+                required: "Order ID is required",
+              })}
             />
-            <Select
-              title="FEEDBACK CHANNEL"
-              required="true"
-              options={[
-                "Dine In",
-                "Take Away",
-                "Delivery",
-                "Pickup",
-                "Drive Thru",
-              ]}
+            <Controller
+              name="feedbackChannel"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Feedback Channel must be required" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  title="FEEDBACK CHANNEL"
+                  required={true}
+                  options={[
+                    "Dine In",
+                    "Take Away",
+                    "Delivery",
+                    "Pickup",
+                    "Drive Thru",
+                  ]}
+                />
+              )}
             />
           </div>
           <div className="bg-white dark:bg-bgButtonDark p-5 rounded-md flex flex-col justify-start items-start gap-3">
             <h1 className="text-2xl font-bold">About Your Visit</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
-              <Select
-                title="SELECT STORE"
-                required="true"
-                options={kfcLocations}
+              <Controller
+                name="store"
+                control={control}
+                defaultValue=""
+                rules={{ required: "Store must be required" }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    title="SELECT STORE"
+                    required={true}
+                    options={kfcLocations}
+                  />
+                )}
               />
               <Input
                 type="date"
                 title="DATE"
                 label="DATE"
                 placeholder=""
-                required="true"
+                required={true}
                 isDateInput="true"
+                {...register("date", {
+                  required: "Date must be required",
+                })}
               />
             </div>
-            <Select
-              title="FEEDBACK TYPE"
-              required="true"
-              options={["Comments", "Suggestions", "Questions"]}
+            <Controller
+              name="feedbackType"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Feedback Type must be required" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  title="FEEDBACK TYPE"
+                  required={true}
+                  options={["Comments", "Suggestions", "Questions"]}
+                />
+              )}
             />
-            <textarea
-              name="feedback-message"
-              id="feedback-message"
-              className="w-full h-full bg-[#C2C3C5] dark:bg-bgButtonDark rounded-md p-2 outline-blue-300"
-              placeholder="FEEDBACK MESSAGE"
-            ></textarea>
+            <Controller
+              name="feedbackMessage"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Feedback Message is required" }}
+              render={({ field }) => (
+                <textarea
+                  {...field}
+                  id="feedback-message"
+                  className="w-full h-full bg-[#C2C3C5] dark:bg-[#242120] rounded-md p-2 outline-blue-300 text-md"
+                  placeholder="FEEDBACK MESSAGE"
+                ></textarea>
+              )}
+            />
           </div>
         </div>
         <div className="flex justify-center items-center">
           <Button
             className="bg-red text-white w-full md:w-[30%] lg:w-[20%] py-6"
-            disabled={"true"}
+            disabled={false}
+            type="submit"
           >
             SUBMIT
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

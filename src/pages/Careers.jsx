@@ -11,6 +11,7 @@ import { PiBagFill } from "react-icons/pi";
 import { IoIosStar } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useForm, Controller } from "react-hook-form";
 
 const Careers = () => {
   const valuesData = [
@@ -57,8 +58,43 @@ const Careers = () => {
         "We help and support each other to grow and achieve more. We benefit from healthy debate to get the best outcomes. We win together as the KFC family!",
     },
   ];
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+    control,
+    reset,
+  } = useForm();
+
+  const handleCareerSubmit = (data) => {
+    console.log(data);
+    reset();
+  };
+
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+    if (value.length < 10) {
+      setError("phone", {
+        type: "Length Error",
+        message: "Phone Number must be exactly 10 digits",
+      });
+    }
+    if (value.length === 10) {
+      clearErrors("phone");
+    }
+    e.target.value = value;
+  };
+
   return (
-    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-16 min-h-[100vh]">
+    <form
+      className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-16 min-h-[100vh]"
+      onSubmit={handleSubmit(handleCareerSubmit)}
+    >
       <div className="container">
         <div className="w-full bg-red">
           <video src="/kfc_video.mp4" controls className="w-full"></video>
@@ -87,68 +123,110 @@ const Careers = () => {
               title="FULL NAME"
               label="FULL NAME"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("fullName", {
+                required: "Full Name must be required",
+              })}
             />
             <Input
               type="date"
               title="Date of Birth"
               label="Date of Birth"
               placeholder=""
-              required="true"
+              required={true}
               isDateInput="true"
+              {...register("dateOfBirth", {
+                required: "Date of Birth must be required",
+              })}
             />
             <Input
               type="text"
               title="Country of Birth"
               label="Country of Birth"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("countryOfBirth", {
+                required: "Country of Birth must be required",
+              })}
             />
             <Input
               type="text"
               title="City of Birth"
               label="City of Birth"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("cityOfBirth", {
+                required: "City of Birth must be required",
+              })}
             />
             <Input
               type="number"
               title="CNIC"
               label="CNIC"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("cnic", {
+                required: "CNIC must be required",
+              })}
             />
             <Input
               type="date"
               title="CNIC Expiry Date"
               label="CNIC Expiry Date"
               placeholder=""
-              required="true"
+              required={true}
               isDateInput="true"
+              {...register("date", {
+                required: "Date must be required",
+              })}
             />
-            <Select
-              title="Marital Status"
-              required="true"
-              options={["Married", "Un married"]}
+            <Controller
+              name="maritalStatus"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Marital Status must be required" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  title="Marital Status"
+                  required={true}
+                  options={["Married", "Un married"]}
+                />
+              )}
             />
-            <Select
-              title="Gender"
-              required="false"
-              options={["Male", "Female", "Others"]}
+
+            <Controller
+              name="gender"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  title="Gender"
+                  required={false}
+                  options={["Male", "Female", "Others"]}
+                />
+              )}
             />
             <Input
               type="text"
               title="Religion"
               label="Religion"
-              placeholder="Religion"
-              required="true"
+              placeholder=""
+              required={true}
+              {...register("religion", {
+                required: "Religion must be required",
+              })}
             />
             <Input
               type="text"
               title="Disability"
               label="Disability"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("disability", {
+                required: "Disability must be required",
+              })}
             />
           </div>
         </div>
@@ -162,36 +240,58 @@ const Careers = () => {
               title="Phone Number (3xxxxxxxxx)*"
               label="Phone Number (3xxxxxxxxx)*"
               placeholder=""
-              required="true"
+              required={true}
               isPhoneInput="true"
+              {...register("phone", {
+                required: "Phone Number is required",
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: "Phone Number must be exactly 10 digits",
+                },
+                onChange: (e) => {
+                  handlePhoneChange(e);
+                },
+              })}
             />
             <Input
               type="text"
               title="Address"
               label="Address"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("address", {
+                required: "Address must be required",
+              })}
             />
             <Input
               type="text"
               title="Country"
               label="Country"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("country", {
+                required: "Country must be required",
+              })}
             />
             <Input
               type="text"
               title="State/Province"
               label="State/Province"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("state/province", {
+                required: "State/Province must be required",
+              })}
             />
             <Input
               type="text"
               title="City"
               label="City"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("city", {
+                required: "City must be required",
+              })}
             />
           </div>
         </div>
@@ -205,35 +305,50 @@ const Careers = () => {
               title="How were you refered to us?"
               label="How were you refered to us?"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("How were you refered to us?", {
+                required: "This Question must be required",
+              })}
             />
             <Input
               type="text"
               title="City Applying For"
               label="City Applying For"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("City Applying For", {
+                required: "This Question must be required",
+              })}
             />
             <Input
               type="text"
               title="Position You are Applying For"
               label="Position You are Applying For"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("Position You are Applying For", {
+                required: "This Question must be required",
+              })}
             />
             <Input
               type="text"
               title="Type of Shift (Only for instore)"
               label="Type of Shift (Only for instore)"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("Type of Shift (Only for instore)", {
+                required: "This Question must be required",
+              })}
             />
             <Input
               type="text"
               title="Type of Employement (Only for instore)"
               label="Type of Employement (Only for instore)"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("Type of Employement (Only for instore)", {
+                required: "This Question must be required",
+              })}
             />
           </div>
         </div>
@@ -247,28 +362,40 @@ const Careers = () => {
               title="Degree"
               label="Degree"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("degree", {
+                required: "Degree must be required",
+              })}
             />
             <Input
               type="text"
               title="Majors"
               label="Majors"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("majors", {
+                required: "Majors must be required",
+              })}
             />
             <Input
               type="text"
               title="Qualification Year"
               label="Qualification Year"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("qualificationYear", {
+                required: "Qualification Year must be required",
+              })}
             />
             <Input
               type="text"
               title="Place of Tuition"
               label="Place of Tuition"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("placeOfTuition", {
+                required: "Place of Tuition must be required",
+              })}
             />
           </div>
         </div>
@@ -282,21 +409,30 @@ const Careers = () => {
               title="Total Years of Experience"
               label="Total Years of Experience"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("totalYearsOfExperience", {
+                required: "Total Years of Experience must be required",
+              })}
             />
             <Input
               type="text"
               title="Recent Position"
               label="Recent Position"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("recentPosition", {
+                required: "Recent Position must be required",
+              })}
             />
             <Input
               type="text"
               title="Recent Company"
               label="Recent Company"
               placeholder=""
-              required="true"
+              required={true}
+              {...register("recentCompany", {
+                required: "Recent Company must be required",
+              })}
             />
           </div>
         </div>
@@ -335,15 +471,14 @@ const Careers = () => {
             </p>
           </div>
           <Button
-            disbled
             className="w-full md:w-[50%] mx-auto bg-red text-white"
-            disabled={true}
+            type="submit"
           >
             Apply
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

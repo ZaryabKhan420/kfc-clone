@@ -4,12 +4,13 @@ const Input = (
   {
     type = "text",
     placeholder = "",
-    required = "false",
+    required = false,
     title = "",
     className = "",
     label = "",
     isPhoneInput = false,
     isDateInput = false,
+    onChange = () => {},
     ...props
   },
   ref
@@ -26,20 +27,20 @@ const Input = (
 
   return (
     <div
-      className={`flex flex-col justify-start items-start bg-[#C2C3C5] dark:bg-bgButtonDark border border-b-black rounded-t-lg p-3 cursor-pointer w-full h-16 transition-all duration-200 ease-linear ${
-        isActive && "border-b-red"
+      className={`flex flex-col justify-start items-start bg-[#C2C3C5] dark:bg-[#242120] border-b border-b-black dark:border-b-white rounded-t-lg p-3 cursor-pointer w-full h-16 transition-all duration-200 ease-linear ${
+        isActive && "border-b-red dark:border-b-red"
       }`}
       onClick={!isActive ? handleActivate : undefined}
       onBlur={() => setIsActive(false)}
     >
       <label
         htmlFor={title}
-        className={`text-md font-normal transition-all duration-200 ease-linear ${
+        className={`text-md font-normal transition-all duration-200 ease-linear flex justify-start items-center gap-1 ${
           isActive && "text-sm"
         } ${isPhoneInput && "text-sm"} ${isDateInput && "text-sm"}  `}
       >
         {label}
-        {required === "true" && " *"}
+        {required === true && <p className="text-red">*</p>}
       </label>
       <div className="flex justify-start items-center gap-2 w-full">
         {isPhoneInput && <h1 className="text-lg font-bold">+92 | </h1>}
@@ -48,7 +49,8 @@ const Input = (
           placeholder={placeholder}
           required={required}
           ref={ref || inputRef}
-          className={`border-none outline-none bg-transparent transition-all duration-200 ease-linear ${
+          onChange={onChange}
+          className={`border-none outline-none bg-transparent transition-all duration-200 ease-linear focus:bg-transparent hover:bg-transparent  ${
             isPhoneInput ? "" : "w-full"
           } ${className}`}
           id={title}
