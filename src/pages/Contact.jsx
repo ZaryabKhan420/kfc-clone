@@ -71,12 +71,12 @@ const Contact = () => {
         </div>
         <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {carOneData.map((data) => {
-            return <ContactCardOne data={data} />;
+            return <ContactCardOne data={data} key={data.id} />;
           })}
         </div>
         <div className="my-5 grid grid-cols-1 md:grid-cols-2 gap-5">
           {cardTwoData.map((data) => {
-            return <ContactCardTwo data={data} />;
+            return <ContactCardTwo data={data} key={data.id} />;
           })}
         </div>
       </div>

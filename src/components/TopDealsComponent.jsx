@@ -28,7 +28,7 @@ const TopDealsComponent = ({
       <div className="flex flex-col justify-start items-start gap-1">
         <h1 className="text-xl font-bold mt-8 h-8 ">{title}</h1>
         <p className="h-12 ">{description}</p>
-        <p className="font-bold mt-2 h-8 ">Rs {price}</p>
+        <p className="font-bold my-5 sm:mt-2 sm:mb-0 h-8 ">Rs {price}</p>
       </div>
       <div className="absolute top-0 left-[50%] translate-x-[-50%] flex justify-center items-start gap-2">
         <div className="w-4 h-5 bg-red"></div>

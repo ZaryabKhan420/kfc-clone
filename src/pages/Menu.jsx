@@ -647,28 +647,25 @@ const Menu = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            {/* phone  */}
 
-              {/* phone  */}
-
-              <div className="absolute bottom-8 left-0 w-full h-[4rem] bg-red rounded-t-2xl bucket-card sm:hidden">
-                <div className="flex justify-between items-center gap-3 h-full px-4">
-                  <div className="flex justify-start items-center gap-2 text-white">
-                    <h3 className="text-md">0 Item</h3>
-                    <h3 className="text-lg font-bold">
-                      <span>|</span> Rs 0
-                    </h3>
-                  </div>
-                  <div className="flex justify-start items-center gap-2">
-                    <h1 className="text-xl font-bold text-white">
-                      View Bucket
-                    </h1>
-                    <button
-                      className="w-8 h-8 rounded-full bg-white flex justify-center items-center"
-                      onClick={() => navigate("/bucket")}
-                    >
-                      <MdKeyboardArrowRight className="text-black text-2xl" />
-                    </button>
-                  </div>
+            <div className="absolute bottom-0 left-0 w-full h-[4rem] bg-red rounded-t-2xl block sm:hidden">
+              <div className="flex justify-between items-center gap-3 h-full px-4">
+                <div className="flex justify-start items-center gap-2 text-white">
+                  <h3 className="text-md">0 Item</h3>
+                  <h3 className="text-lg font-bold">
+                    <span>|</span> Rs 0
+                  </h3>
+                </div>
+                <div className="flex justify-start items-center gap-2">
+                  <h1 className="text-xl font-bold text-white">View Bucket</h1>
+                  <button
+                    className="w-8 h-8 rounded-full bg-white flex justify-center items-center"
+                    onClick={() => navigate("/bucket")}
+                  >
+                    <MdKeyboardArrowRight className="text-black text-2xl" />
+                  </button>
                 </div>
               </div>
             </div>

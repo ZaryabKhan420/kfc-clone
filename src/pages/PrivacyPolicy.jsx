@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
   return (
-    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5">
+    <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5 min-h-[100vh]">
       <div className="container py-12 heading">
         <div className="flex justify-between items-start flex-wrap">
           <button
