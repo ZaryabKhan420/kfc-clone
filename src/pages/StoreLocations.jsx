@@ -1,5 +1,5 @@
-import React from "react";
-import { WithAuthProtection } from "../components/index";
+import React, { useState, useMemo } from "react";
+import { WithAuthProtection, LocationCard } from "../components/index";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
@@ -7,6 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const StoreLocations = () => {
   const navigate = useNavigate();
+
+  const [searchText, setSearchText] = useState("");
+  const [selectedCity, setSelectedCity] = useState("All");
+
   const pakistanCities = [
     "All",
     "Islamabad",
@@ -15,6 +19,7 @@ const StoreLocations = () => {
     "Rawalpindi",
     "Faisalabad",
     "Multan",
+    "Gujrat",
     "Peshawar",
     "Quetta",
     "Sialkot",
@@ -23,7 +28,6 @@ const StoreLocations = () => {
     "Mardan",
     "Sukkur",
     "Murree",
-    "Islamabad",
     "Hyderabad",
     "Sargodha",
     "Abbottabad",
@@ -37,7 +41,7 @@ const StoreLocations = () => {
     "Skardu",
   ];
 
-  const kfcStores = [
+  const kfcStoresData = [
     {
       id: 1,
       title: "KFC Store, Defence Road Branch",
@@ -200,6 +204,193 @@ const StoreLocations = () => {
     },
   ];
 
+  const deliveryData = [
+    {
+      id: 1,
+      title: "KFC Canal View Branch",
+      location: "Lahore",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "11:30 PM",
+    },
+    {
+      id: 2,
+      title: "University Road Branch",
+      location: "Peshawar",
+      image: "kfc-pin.svg",
+      openingTime: "9:30 AM",
+      closingTime: "11:00 PM",
+    },
+    {
+      id: 3,
+      title: "Shah Rukn-e-Alam Branch",
+      location: "Multan",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "11:00 PM",
+    },
+    {
+      id: 4,
+      title: "Garden Town Branch",
+      location: "Lahore",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "12:30 AM",
+    },
+    {
+      id: 5,
+      title: "Johar Town Branch",
+      location: "Lahore",
+      image: "kfc-pin.svg",
+      openingTime: "10:30 AM",
+      closingTime: "11:30 PM",
+    },
+    {
+      id: 6,
+      title: "DHA Phase 6 Branch",
+      location: "Karachi",
+      image: "kfc-pin.svg",
+      openingTime: "11:00 AM",
+      closingTime: "12:30 AM",
+    },
+    {
+      id: 7,
+      title: "Civic Center Branch",
+      location: "Rawalpindi",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "11:00 PM",
+    },
+    {
+      id: 8,
+      title: "Blue Area Branch",
+      location: "Islamabad",
+      image: "kfc-pin.svg",
+      openingTime: "10:30 AM",
+      closingTime: "11:30 PM",
+    },
+    {
+      id: 9,
+      title: "Hyderabad Bypass Branch",
+      location: "Hyderabad",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "11:30 PM",
+    },
+    {
+      id: 10,
+      title: "Model Town Branch",
+      location: "Lahore",
+      image: "kfc-pin.svg",
+      openingTime: "9:00 AM",
+      closingTime: "11:00 PM",
+    },
+  ];
+
+  const pickupData = [
+    {
+      id: 1,
+      title: "KFC Railway Station Branch",
+      location: "Karachi",
+      image: "kfc-pin.svg",
+      openingTime: "9:00 AM",
+      closingTime: "10:30 PM",
+    },
+    {
+      id: 2,
+      title: "Fortress Stadium Branch",
+      location: "Lahore",
+      image: "kfc-pin.svg",
+      openingTime: "10:30 AM",
+      closingTime: "11:30 PM",
+    },
+    {
+      id: 3,
+      title: "Clock Tower Branch",
+      location: "Faisalabad",
+      image: "kfc-pin.svg",
+      openingTime: "11:00 AM",
+      closingTime: "12:00 AM",
+    },
+    {
+      id: 4,
+      title: "Metroville Branch",
+      location: "Karachi",
+      image: "kfc-pin.svg",
+      openingTime: "10:30 AM",
+      closingTime: "10:30 PM",
+    },
+    {
+      id: 5,
+      title: "Satellite Town Branch",
+      location: "Quetta",
+      image: "kfc-pin.svg",
+      openingTime: "11:00 AM",
+      closingTime: "11:30 PM",
+    },
+    {
+      id: 6,
+      title: "Askari 10 Branch",
+      location: "Rawalpindi",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "11:00 PM",
+    },
+    {
+      id: 7,
+      title: "Saddar Branch",
+      location: "Karachi",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "12:00 AM",
+    },
+    {
+      id: 8,
+      title: "Soan Gardens Branch",
+      location: "Islamabad",
+      image: "kfc-pin.svg",
+      openingTime: "9:30 AM",
+      closingTime: "11:30 PM",
+    },
+    {
+      id: 9,
+      title: "Jail Road Branch",
+      location: "Lahore",
+      image: "kfc-pin.svg",
+      openingTime: "10:30 AM",
+      closingTime: "11:00 PM",
+    },
+    {
+      id: 10,
+      title: "Super Market Branch",
+      location: "Islamabad",
+      image: "kfc-pin.svg",
+      openingTime: "10:00 AM",
+      closingTime: "12:00 AM",
+    },
+  ];
+
+  const filterData = (data) =>
+    data.filter(
+      (item) =>
+        (selectedCity === "All" ||
+          item.location.toLowerCase() === selectedCity.toLowerCase()) &&
+        item.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+  const filteredStores = useMemo(
+    () => filterData(kfcStoresData),
+    [searchText, selectedCity, kfcStoresData]
+  );
+  const filteredDelivery = useMemo(
+    () => filterData(deliveryData),
+    [searchText, selectedCity, deliveryData]
+  );
+  const filteredPickup = useMemo(
+    () => filterData(pickupData),
+    [searchText, selectedCity, pickupData]
+  );
+
   return (
     <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5 min-h-[100vh] flex justify-center items-center">
       <div className="container">
@@ -218,11 +409,13 @@ const StoreLocations = () => {
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 my-5 w-full">
-                <div className="flex justify-center items-center gap-3 bg-bgButtonLight dark:bg-black px-4 py-3">
+                <div className="flex justify-start items-center gap-3 bg-bgButtonLight dark:bg-black px-4 py-3">
                   <IoSearchSharp size={25} />
                   <input
                     type="text"
                     placeholder="Search"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
                     className="border-none outline-none bg-transparent"
                   />
                 </div>
@@ -230,15 +423,15 @@ const StoreLocations = () => {
                   <select
                     name="city"
                     id="city"
+                    value={selectedCity}
+                    onChange={(e) => setSelectedCity(e.target.value)}
                     className="bg-bgButtonLight dark:bg-black px-4 py-3 outline-blue-300 cursor-pointer border-none w-full"
                   >
-                    {pakistanCities.map((data, index) => {
-                      return (
-                        <option value={data} key={index}>
-                          {data}
-                        </option>
-                      );
-                    })}
+                    {pakistanCities.map((city, index) => (
+                      <option value={city} key={index}>
+                        {city}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -261,21 +454,54 @@ const StoreLocations = () => {
                   value="all"
                   className="my-5 p-4 bg-bgButtonLight dark:bg-black h-[23rem] overflow-y-auto"
                 >
-                  Make changes to your account here.
+                  {filteredStores.map((data) => (
+                    <LocationCard
+                      key={data.id}
+                      title={data.title}
+                      location={data.location}
+                      image={data.image}
+                      openingTime={data.openingTime}
+                      closingTime={data.closingTime}
+                    />
+                  ))}
                 </TabsContent>
-                <TabsContent value="delivery">
-                  Change your password here.
+                <TabsContent
+                  value="delivery"
+                  className="my-5 p-4 bg-bgButtonLight dark:bg-black h-[23rem] overflow-y-auto"
+                >
+                  {filteredDelivery.map((data) => (
+                    <LocationCard
+                      key={data.id}
+                      title={data.title}
+                      location={data.location}
+                      image={data.image}
+                      openingTime={data.openingTime}
+                      closingTime={data.closingTime}
+                    />
+                  ))}
                 </TabsContent>
-                <TabsContent value="pickup">
-                  Change your password here.
+                <TabsContent
+                  value="pickup"
+                  className="my-5 p-4 bg-bgButtonLight dark:bg-black h-[23rem] overflow-y-auto"
+                >
+                  {filteredPickup.map((data) => (
+                    <LocationCard
+                      key={data.id}
+                      title={data.title}
+                      location={data.location}
+                      image={data.image}
+                      openingTime={data.openingTime}
+                      closingTime={data.closingTime}
+                    />
+                  ))}
                 </TabsContent>
               </Tabs>
             </div>
-            <div className="w-full md:col-span-3">
+            <div className="w-full md:col-span-3 min-h-[23rem]">
               <iframe
                 className="maps w-full h-full"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3359.7034406118987!2d74.16412487615372!3d32.640720090938025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391f03050c9a9403%3A0x547af0d30e96d8b!2sUniversity%20of%20Gujrat!5e0!3m2!1sen!2s!4v1691825736910!5m2!1sen!2s"
-                style={{ border: 0 }} // Use object notation here
+                style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
