@@ -12,8 +12,121 @@ import { IoIosStar } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Careers = () => {
+  const schema = z.object({
+    fullName: z
+      .string()
+      .min(1, "FullName is required")
+      .max(20, "FullName should not be more than 20 characters"),
+    dateOfBirth: z.string().min(1, "Date of Birth is required"),
+    countryOfBirth: z
+      .string()
+      .min(1, "Country Of Birth is required")
+      .max(20, "Country Of Birth should not be more than 20 characters"),
+    cityOfBirth: z
+      .string()
+      .min(1, "City Of Birth is required")
+      .max(20, "City Of Birth should not be more than 20 characters"),
+    cnic: z
+      .string()
+      .min(1, "CNIC is required")
+      .refine((value) => value.length === 13, {
+        message: "CNIC Should exactly 13 digits.",
+      }),
+    cnicExpiryDate: z.string().min(1, "CNIC Expiry Date is required"),
+    maritalStatus: z.string().min(1, "Marital Status is required"),
+    gender: z.string(),
+    religion: z
+      .string()
+      .min(1, "Religion must be required")
+      .max(20, "Religion should not be more than 20 characters"),
+    disability: z
+      .string()
+      .min(1, "Disability Status must be required")
+      .max(20, "Disability Status should not be more than 20 characters"),
+    phone: z
+      .string()
+      .min(1, "Phone must be required")
+      .max(10, "Phone must be exactly 10 digits."),
+
+    address: z
+      .string()
+      .min(1, "Address must be required")
+      .max(50, "Address should not be more than 50 characters"),
+
+    country: z
+      .string()
+      .min(1, "Country must be required")
+      .max(15, "Country should not be more than 15 characters"),
+    stateProvince: z
+      .string()
+      .min(1, "State/Province must be required")
+      .max(15, "State/Province should not be more than 15 characters"),
+    city: z
+      .string()
+      .min(1, "City must be required")
+      .max(10, "City should not be more than 10 characters"),
+
+    howWereYouReferedToUs: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(20, "This Question should not be more than 20 characters"),
+    cityApplyingFor: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(15, "This Question should not be more than 15 characters"),
+    positionYouAreApplyingFor: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(20, "This Question should not be more than 20 characters"),
+
+    typeOfShift: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(20, "This Question should not be more than 20 characters"),
+
+    typeOfEmployement: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(20, "This Question should not be more than 20 characters"),
+
+    degree: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(30, "This Question should not be more than 30 characters"),
+
+    majors: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(50, "This Question should not be more than 50 characters"),
+    qualificationYear: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(10, "This Question should not be more than 10 characters"),
+    placeOfTuition: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(20, "This Question should not be more than 20 characters"),
+
+    totalYearsOfExperience: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(15, "This Question should not be more than 15 characters"),
+
+    recentPosition: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(20, "This Question should not be more than 20 characters"),
+
+    recentCompany: z
+      .string()
+      .min(1, "This Question must be required")
+      .max(20, "This Question should not be more than 20 characters"),
+  });
+
   const valuesData = [
     {
       id: 1,
@@ -66,7 +179,7 @@ const Careers = () => {
     clearErrors,
     control,
     reset,
-  } = useForm();
+  } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
 
   const handleCareerSubmit = (data) => {
     console.log(data);
@@ -125,9 +238,7 @@ const Careers = () => {
                 label="FULL NAME"
                 placeholder=""
                 required={true}
-                {...register("fullName", {
-                  required: "Full Name must be required",
-                })}
+                {...register("fullName")}
               />
               {errors?.fullName && (
                 <p className="text-red text-sm">{errors?.fullName?.message}</p>
@@ -191,6 +302,7 @@ const Careers = () => {
                 title="CNIC"
                 label="CNIC"
                 placeholder=""
+                defaultValue={0}
                 required={true}
                 {...register("cnic", {
                   required: "CNIC must be required",
@@ -299,8 +411,8 @@ const Careers = () => {
             <div className="w-full">
               <Input
                 type="tel"
-                title="Phone Number (3xxxxxxxxx)*"
-                label="Phone Number (3xxxxxxxxx)*"
+                title="Phone Number (3xxxxxxxxx)"
+                label="Phone Number (3xxxxxxxxx)"
                 placeholder=""
                 required={true}
                 isPhoneInput="true"
@@ -395,7 +507,7 @@ const Careers = () => {
                 label="How were you refered to us?"
                 placeholder=""
                 required={true}
-                {...register("howWereYouReferedToUs?", {
+                {...register("howWereYouReferedToUs", {
                   required: "This Question must be required",
                 })}
               />

@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-bgLight dark:bg-black mt-16 p-5 md:mt-5 lg:mt-8 min-h-[100vh] flex justify-center items-center">
+    <div className="bg-bgLight dark:bg-black mt-16 sm:p-5 md:mt-5 lg:mt-8 min-h-[100vh] flex justify-center items-center">
       <div className="container">
         <div className="bg-white dark:bg-bgButtonDark rounded-md w-full md:max-w-[80%] px-5 pt-5 pb-5 md:pb-0 mx-auto">
           <button

@@ -105,7 +105,7 @@ const Home = () => {
       price: 1350,
     },
     {
-      id: 2,
+      id: 3,
       title: "Family Festival 3",
       img: "/topSeller3.png",
       description:
@@ -272,7 +272,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-5 pb-16">
           {endingImage.map((value) => {
             return (
-              <Link to={"/menu"}>
+              <Link to={"/menu"} key={value.id}>
                 <img
                   src={value.img}
                   alt={value.id}

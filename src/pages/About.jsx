@@ -201,7 +201,7 @@ const About = () => {
             {pakistanFacts.map((data) => {
               return (
                 <PakistanFactsCard
-                  key={data.key}
+                  key={data.id}
                   title={data.title}
                   description={data.description}
                   img={data.img}

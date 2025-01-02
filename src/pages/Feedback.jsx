@@ -4,7 +4,36 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 const Feedback = () => {
+  const schema = z.object({
+    fullName: z
+      .string()
+      .min(1, "Full Name must be required")
+      .max(20, "Full Name should not be more than 20 characters"),
+    email: z
+      .string()
+      .email("Invalid Email Address")
+      .min(1, "Email Address must be required"),
+    orderId: z
+      .string()
+      .min(1, "Order ID must be required")
+      .max(20, "Order ID should not be more than 20 characters"),
+    feedbackChannel: z.string().min(1, "Order ID must be required"),
+    phone: z
+      .string()
+      .min(1, "Phone Number must be required")
+      .max(10, "Phone Number should not be more than 10 digits"),
+
+    store: z.string().min(1, "Store must be required"),
+
+    date: z.string().min(1, "Date must be required"),
+
+    feedbackType: z.string().min(1, "Feedback Type must be required"),
+
+    feedbackMessage: z.string().min(1, "Feedback Message must be required"),
+  });
   const {
     register,
     handleSubmit,
@@ -13,7 +42,7 @@ const Feedback = () => {
     clearErrors,
     control,
     reset,
-  } = useForm();
+  } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
 
   const navigate = useNavigate();
   const kfcLocations = [
