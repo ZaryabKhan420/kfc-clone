@@ -180,17 +180,24 @@ const Feedback = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 my-8">
           <div className="bg-white dark:bg-bgButtonDark p-5 rounded-md flex flex-col justify-start items-start gap-3">
             <h1 className="text-2xl font-bold">Contact Details</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
-              <Input
-                type="text"
-                title="FULL NAME"
-                label="FULL NAME"
-                placeholder=""
-                required={true}
-                {...register("fullName", {
-                  required: "Full Name must be required",
-                })}
-              />
+            <div className="grid grid-cols-1 xl:grid-cols-2 w-full gap-5">
+              <div className="w-full">
+                <Input
+                  type="text"
+                  title="FULL NAME"
+                  label="FULL NAME"
+                  placeholder=""
+                  required={true}
+                  {...register("fullName", {
+                    required: "Full Name must be required",
+                  })}
+                />
+                {errors?.fullName && (
+                  <p className="text-red text-sm">
+                    {errors?.fullName?.message}
+                  </p>
+                )}
+              </div>
               <div>
                 <Input
                   type="text"
@@ -211,7 +218,7 @@ const Feedback = () => {
                   })}
                 />
                 {errors?.phone && (
-                  <p className="text-red text-sm">{errors.phone.message}</p>
+                  <p className="text-red text-sm">{errors?.phone?.message}</p>
                 )}
               </div>
             </div>
@@ -230,98 +237,134 @@ const Feedback = () => {
                   },
                 })}
               />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              {errors?.email && (
+                <p className="text-red text-sm">{errors?.email?.message}</p>
               )}
             </div>
-            <Input
-              type="text"
-              title="Order ID"
-              label="Order ID"
-              placeholder=""
-              required={true}
-              {...register("orderId", {
-                required: "Order ID is required",
-              })}
-            />
-            <Controller
-              name="feedbackChannel"
-              control={control}
-              defaultValue=""
-              rules={{ required: "Feedback Channel must be required" }}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  title="FEEDBACK CHANNEL"
-                  required={true}
-                  options={[
-                    "Dine In",
-                    "Take Away",
-                    "Delivery",
-                    "Pickup",
-                    "Drive Thru",
-                  ]}
-                />
+            <div className="w-full">
+              <Input
+                type="text"
+                title="Order ID"
+                label="Order ID"
+                placeholder=""
+                required={true}
+                {...register("orderId", {
+                  required: "Order ID is required",
+                })}
+              />
+              {errors?.orderId && (
+                <p className="text-red text-sm">{errors?.orderId?.message}</p>
               )}
-            />
-          </div>
-          <div className="bg-white dark:bg-bgButtonDark p-5 rounded-md flex flex-col justify-start items-start gap-3">
-            <h1 className="text-2xl font-bold">About Your Visit</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
+            </div>
+            <div className="w-full">
               <Controller
-                name="store"
+                name="feedbackChannel"
                 control={control}
-                defaultValue=""
-                rules={{ required: "Store must be required" }}
+                defaultValue="Dine In"
+                rules={{ required: "Feedback Channel must be required" }}
                 render={({ field }) => (
                   <Select
                     {...field}
-                    title="SELECT STORE"
+                    title="FEEDBACK CHANNEL"
                     required={true}
-                    options={kfcLocations}
+                    options={[
+                      "Dine In",
+                      "Take Away",
+                      "Delivery",
+                      "Pickup",
+                      "Drive Thru",
+                    ]}
                   />
                 )}
               />
-              <Input
-                type="date"
-                title="DATE"
-                label="DATE"
-                placeholder=""
-                required={true}
-                isDateInput="true"
-                {...register("date", {
-                  required: "Date must be required",
-                })}
-              />
+              {errors?.feedbackChannel && (
+                <p className="text-red text-sm">
+                  {errors?.feedbackChannel?.message}
+                </p>
+              )}
             </div>
-            <Controller
-              name="feedbackType"
-              control={control}
-              defaultValue=""
-              rules={{ required: "Feedback Type must be required" }}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  title="FEEDBACK TYPE"
-                  required={true}
-                  options={["Comments", "Suggestions", "Questions"]}
+          </div>
+          <div className="bg-white dark:bg-bgButtonDark p-5 rounded-md flex flex-col justify-start items-start gap-3">
+            <h1 className="text-2xl font-bold">About Your Visit</h1>
+            <div className="grid grid-cols-1 xl:grid-cols-2 w-full gap-5">
+              <div className="w-full">
+                <Controller
+                  name="store"
+                  control={control}
+                  defaultValue={kfcLocations[0]}
+                  rules={{ required: "Store must be required" }}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      title="SELECT STORE"
+                      required={true}
+                      options={kfcLocations}
+                    />
+                  )}
                 />
+                {errors?.store && (
+                  <p className="text-red text-sm">{errors?.store?.message}</p>
+                )}
+              </div>
+              <div className="w-full">
+                <Input
+                  type="date"
+                  title="DATE"
+                  label="DATE"
+                  placeholder=""
+                  required={true}
+                  isDateInput="true"
+                  {...register("date", {
+                    required: "Date must be required",
+                  })}
+                />
+                {errors?.date && (
+                  <p className="text-red text-sm">{errors?.date?.message}</p>
+                )}
+              </div>
+            </div>
+            <div className="w-full">
+              <Controller
+                name="feedbackType"
+                control={control}
+                defaultValue="Comments"
+                rules={{ required: "Feedback Type must be required" }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    title="FEEDBACK TYPE"
+                    required={true}
+                    options={["Comments", "Suggestions", "Questions"]}
+                  />
+                )}
+              />
+              {errors?.feedbackType && (
+                <p className="text-red text-sm">
+                  {errors?.feedbackType?.message}
+                </p>
               )}
-            />
-            <Controller
-              name="feedbackMessage"
-              control={control}
-              defaultValue=""
-              rules={{ required: "Feedback Message is required" }}
-              render={({ field }) => (
-                <textarea
-                  {...field}
-                  id="feedback-message"
-                  className="w-full h-full bg-[#C2C3C5] dark:bg-[#242120] rounded-md p-2 outline-blue-300 text-md"
-                  placeholder="FEEDBACK MESSAGE"
-                ></textarea>
+            </div>
+            <div className="w-full h-full">
+              <Controller
+                name="feedbackMessage"
+                control={control}
+                defaultValue=""
+                rules={{ required: "Feedback Message is required" }}
+                render={({ field }) => (
+                  <textarea
+                    {...field}
+                    id="feedback-message"
+                    className="w-full h-full bg-[#C2C3C5] dark:bg-[#242120] rounded-md p-2 outline-blue-300 text-md"
+                    placeholder="FEEDBACK MESSAGE"
+                  ></textarea>
+                )}
+              />
+              {errors?.feedbackMessage && (
+                <p className="text-red text-sm">
+                  {errors?.feedbackMessage?.message}
+                </p>
               )}
-            />
+            </div>
           </div>
         </div>
         <div className="flex justify-center items-center">

@@ -50,7 +50,8 @@ const Input = (
           required={required}
           ref={ref || inputRef}
           onChange={onChange}
-          className={`border-none outline-none bg-transparent transition-all duration-200 ease-linear focus:bg-transparent hover:bg-transparent  ${
+          autoComplete="off"
+          className={`border-none outline-none bg-transparent transition-all duration-200 ease-linear focus:outline-none focus:bg-transparent hover:bg-transparent  ${
             isPhoneInput ? "" : "w-full"
           } ${className}`}
           id={title}
