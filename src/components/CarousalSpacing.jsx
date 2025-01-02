@@ -69,13 +69,13 @@ export function CarouselSpacing() {
               className="relative bg-white dark:bg-bgButtonDark rounded-tl-full rounded-tr-full rounded-bl-full cursor-pointer"
             >
               <div
-                className={`w-56 h-56  flex flex-col justify-start items-center overflow-hidden m-auto`}
+                className={`w-60 h-56  flex flex-col justify-start items-center overflow-hidden m-auto bg-white dark:bg-bgButtonDark rounded-tl-full rounded-tr-full rounded-bl-full cursor-pointer`}
               >
                 <img
                   src={data.img}
                   alt={data.title}
                   loading="lazy"
-                  className={`max-w-[90%] max-h-[90%] ${
+                  className={`max-w-[80%] max-h-[90%] ${
                     data.id === 2 && "absolute top-[-22%]"
                   }`}
                 />

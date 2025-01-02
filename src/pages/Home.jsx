@@ -154,7 +154,7 @@ const Home = () => {
         <PrimaryHeading title={"EXPLORE MENU"} />
 
         {/* Carousal for large devices  */}
-        <div className="hidden sm:block">
+        <div className="hidden sm:block ">
           <CarouselSpacing />
         </div>
 
