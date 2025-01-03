@@ -3,9 +3,15 @@ import { Button } from "./ui/button";
 import { IoClose } from "react-icons/io5";
 import { PickUpCard } from "./index";
 
-const PickupComponent = ({ isPickUpOpen, setIsPickUpOpen }) => {
+const PickupComponent = ({
+  isPickUpOpen,
+  setIsPickUpOpen,
+  order,
+  setOrder,
+}) => {
   const [search, setSearch] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+
   const places = [
     {
       id: 1,
@@ -237,6 +243,11 @@ const PickupComponent = ({ isPickUpOpen, setIsPickUpOpen }) => {
             <Button
               className="text-md rounded-sm bg-red text-white"
               disabled={selectedOption === ""}
+              onClick={() => {
+                setIsPickUpOpen(false);
+                setOrder(selectedOption);
+                setSelectedOption("");
+              }}
             >
               Start Your Order
             </Button>

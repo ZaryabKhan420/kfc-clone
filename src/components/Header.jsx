@@ -3,11 +3,13 @@ import { RiMenu2Line } from "react-icons/ri";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { PickupComponent } from "./index";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPickUpOpen, setIsPickUpOpen] = useState(false);
   const [showSecondDiv, setShowSecondDiv] = useState(false);
+  const [order, setOrder] = useState("");
   const [theme, setTheme] = useState("light");
   const navigate = useNavigate();
 
@@ -69,6 +71,16 @@ const Header = () => {
   }, [isPickUpOpen]);
 
   const handlePickup = () => {
+    toast.info("Enable your Location for Nearby", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
     setIsPickUpOpen(true);
   };
 
@@ -93,6 +105,8 @@ const Header = () => {
           <PickupComponent
             isPickUpOpen={isPickUpOpen}
             setIsPickUpOpen={setIsPickUpOpen}
+            order={order}
+            setOrder={setOrder}
           />
         </div>
       </div>
@@ -128,6 +142,13 @@ const Header = () => {
               />
             </Link>
           </div>
+
+          {order !== "" && (
+            <div className="absolute top-0 left-[50%] lg:left-[70%] xl:left-[50%] translate-x-[-50%] flex flex-col justify-start items-start py-2 pl-3 pr-5 sm:w-64 bg-[#F5FAFF] border-2 border-[#DFEFFF] dark:border-bgButtonDark dark:bg-bgButtonDark rounded-md">
+              <h1 className="text-sm font-bold">Pickup From</h1>
+              <p>{order}</p>
+            </div>
+          )}
 
           <div className="hidden lg:flex justify-start items-center gap-2 ml-5 w-full">
             <Button
@@ -319,4 +340,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

@@ -4,6 +4,8 @@ const Header = React.lazy(() => import("./components/Header.jsx"));
 const Footer = React.lazy(() => import("./components/Footer.jsx"));
 import { Outlet, useLocation } from "react-router-dom";
 import ErrorBoundaryWrapper from "./errorBoundary/ErrorBoundaryWrapper";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const location = useLocation();
@@ -37,6 +39,18 @@ function App() {
               </div>
             </div>
           )}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         </div>
       </Suspense>
     </ErrorBoundaryWrapper>
