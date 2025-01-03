@@ -138,7 +138,7 @@ const Home = () => {
     <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 ">
       <HomeCarousal />
       <div className="container pt-5 pb-2 w-full">
-        <Button className="flex justify-center items-center bg-red w-full md:w-[50%] m-auto text-white">
+        <Button className="flex justify-center items-center bg-red w-full md:w-[50%] m-auto text-white rounded-sm">
           REORDER
         </Button>
       </div>
@@ -159,8 +159,8 @@ const Home = () => {
         </div>
 
         {/* for mobile devices  */}
-        <div className="grid grid-cols-3 sm:hidden gap-2 mt-5">
-          <div className="relative border border-dashed border-black dark:border-white col-span-1 rounded-lg p-2 h-68">
+        <div className="grid grid-cols-3 sm:hidden gap-1 mt-5">
+          <div className="relative border border-dashed border-black dark:border-white col-span-1 rounded-md p-2 h-[15.25rem]">
             <h1 className="text-xs font-bold">{content[0].title}</h1>
             <div className="absolute inset-0 flex justify-center items-center">
               <img
@@ -172,12 +172,12 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-center gap-2">
-            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-lg h-32 w-full flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center gap-1">
+            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-md h-[7.5rem] w-full flex flex-col justify-center items-center">
               <h1 className="text-xs font-bold text-left w-full">
                 {content[1].title}
               </h1>
-              <div className="flex justify-center items-center w-full h-full mt-3">
+              <div className="flex justify-center items-center w-full h-[80%] mt-3">
                 <img
                   src={content[1].img}
                   alt={content[1].title}
@@ -186,11 +186,11 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-lg h-32 w-full flex flex-col justify-center items-center">
+            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-md h-[7.5rem] w-full flex flex-col justify-center items-center">
               <h1 className="text-xs font-bold text-left w-full">
                 {content[2].title}
               </h1>
-              <div className="flex justify-center items-center w-full h-full mt-3">
+              <div className="flex justify-center items-center w-full h-[80%] mt-3">
                 <img
                   src={content[2].img}
                   alt={content[2].title}
@@ -201,12 +201,12 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-center gap-2">
-            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-lg h-32 w-full flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center gap-1">
+            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-lg h-[7.5rem] w-full flex flex-col justify-center items-center">
               <h1 className="text-xs font-bold text-left w-full">
                 {content[3].title}
               </h1>
-              <div className="flex justify-center items-center w-full h-full mt-3">
+              <div className="flex justify-center items-center w-full h-[80%] mt-3">
                 <img
                   src={content[3].img}
                   alt={content[3].title}
@@ -215,11 +215,11 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-lg h-32 w-full flex flex-col justify-center items-center">
+            <div className="relative border border-dashed border-black dark:border-white p-2 rounded-lg h-[7.5rem] w-full flex flex-col justify-center items-center">
               <h1 className="text-xs font-bold text-left w-full">
                 {content[4].title}
               </h1>
-              <div className="flex justify-center items-center w-full h-full mt-3">
+              <div className="flex justify-center items-center w-full h-[80%] mt-3">
                 <img
                   src={content[4].img}
                   alt={content[4].title}
@@ -282,14 +282,20 @@ const Home = () => {
               </Link>
             );
           })}
-          <div className="bg-white dark:bg-cardDark flex flex-col justify-start items-center gap-4 p-4 rounded-lg">
-            <img src={"/endingImages4.png"} alt={"kfc"} loading="lazy" />
-            <h1 className="text-2xl font-semibold text-center">
+          <div className="bg-white dark:bg-cardDark flex flex-col justify-start items-center gap-2 xl:gap-4 p-4 rounded-lg">
+            <img
+              src={"/endingImages4.png"}
+              alt={"kfc"}
+              loading="lazy"
+              className="w-36 xl:w-64"
+            />
+
+            <h1 className="text-md xl:text-2xl font-semibold text-center">
               Adding 11 herbs and spices, Explore our menu and add items to your
               cart.
             </h1>
             <Button
-              className="bg-red text-white text-xl w-48 h-12"
+              className="bg-red text-white lg:text-xl lg:px-5 lg:py-6"
               onClick={() => navigate("/menu")}
             >
               Explore Menu

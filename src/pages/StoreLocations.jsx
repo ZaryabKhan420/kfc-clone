@@ -394,13 +394,13 @@ const StoreLocations = () => {
   return (
     <div className="bg-bgLight dark:bg-black mt-16 md:mt-5 lg:mt-8 py-5 min-h-[100vh] flex justify-center items-center">
       <div className="container">
-        <div className=" bg-white dark:bg-bgButtonDark p-8 rounded-lg">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-            <div className="md:col-span-2">
+        <div className=" bg-white dark:bg-bgButtonDark p-8 rounded-lg sm:my-24">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div className="lg:col-span-2">
               <div className="flex justify-start items-center gap-2 flex-wrap">
                 <button
                   onClick={() => navigate("/")}
-                  className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:bg-red transition-all duration-300 ease-linear"
+                  className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:text-white hover:bg-red transition-all duration-300 ease-linear"
                 >
                   <MdKeyboardArrowLeft size={20} />
                 </button>
@@ -409,8 +409,8 @@ const StoreLocations = () => {
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 my-5 w-full">
-                <div className="flex justify-start items-center gap-3 bg-bgButtonLight dark:bg-black px-4 py-3">
-                  <IoSearchSharp size={25} />
+                <div className="flex justify-start items-center gap-3 bg-bgButtonLight  dark:bg-black px-4 py-3  w-full">
+                  <IoSearchSharp size={25} className="min-w-4 max-w-4" />
                   <input
                     type="text"
                     placeholder="Search"
@@ -497,7 +497,7 @@ const StoreLocations = () => {
                 </TabsContent>
               </Tabs>
             </div>
-            <div className="w-full md:col-span-3 min-h-[23rem]">
+            <div className="w-full lg:col-span-3 min-h-[23rem]">
               <iframe
                 className="maps w-full h-full"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3359.7034406118987!2d74.16412487615372!3d32.640720090938025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391f03050c9a9403%3A0x547af0d30e96d8b!2sUniversity%20of%20Gujrat!5e0!3m2!1sen!2s!4v1691825736910!5m2!1sen!2s"

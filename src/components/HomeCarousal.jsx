@@ -7,6 +7,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight } from "react-icons/fa6";
 const HomeCarousal = () => {
   const images = [
     {
@@ -33,7 +35,7 @@ const HomeCarousal = () => {
   return (
     <div className="w-[100%] m-auto">
       <Carousel
-        className="w-full"
+        className="w-full relative"
         plugins={[
           Autoplay({
             delay: 5000,
@@ -50,13 +52,20 @@ const HomeCarousal = () => {
                 src={data.url}
                 alt={"KFC"}
                 loading="lazy"
-                className="w-full"
+                className="w-full z-40"
               />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute top-50% left-2 bg-red border-none text-white" />
-        <CarouselNext className="absolute top-50% right-2 bg-red border-none text-white" />
+        <button className="absolute top-[50%] translate-y-[-50%] left-2 w-6 h-6 bg-red rounded-full flex justify-center items-center cursor-pointer">
+          <FaAngleLeft className="text-white" size={15} />
+          <CarouselPrevious className="absolute top-[50%] left-0 w-full h-full bg-transparent border-none text-transparent" />
+        </button>
+
+        <button className="absolute top-[50%]  translate-y-[-50%] right-2 w-6 h-6 bg-red rounded-full flex justify-center items-center cursor-pointer">
+          <FaAngleRight className="text-white" size={15} />
+          <CarouselNext className="absolute top-[50%] right-0 w-full h-full bg-transparent border-none text-transparent" />
+        </button>
       </Carousel>
     </div>
   );

@@ -15,7 +15,9 @@ import KFCSponsoredWork from "./KFCSponsoredWork";
 import ValuesCard from "./ValuesCard";
 import Input from "./Input";
 import Select from "./Select";
+import PickupComponent from "./PickupComponent";
 import LocationCard from "./LocationCard";
+import PickUpCard from "./PickUpCard";
 export {
   Header,
   Footer,
@@ -35,4 +37,6 @@ export {
   Input,
   Select,
   LocationCard,
+  PickupComponent,
+  PickUpCard,
 };

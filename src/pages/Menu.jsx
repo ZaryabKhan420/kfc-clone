@@ -441,7 +441,7 @@ const Menu = () => {
       <div className="w-full">
         {/* Navigation Bar */}
         <div className="sticky top-0 z-10 stickyHeader container">
-          <div className="md:flex justify-around flex-wrap p-4 max-w-[1000px] mx-auto hidden">
+          <div className="lg:flex justify-around flex-wrap p-4 max-w-[1000px] mx-auto hidden">
             {[
               "Everyday Value",
               "Ala-Carte-&-Combos",

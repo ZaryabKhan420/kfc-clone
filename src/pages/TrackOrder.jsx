@@ -40,7 +40,7 @@ const TrackOrder = () => {
         <div className="flex justify-start items-center gap-2 flex-wrap">
           <button
             onClick={() => navigate("/")}
-            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:bg-red transition-all duration-300 ease-linear"
+            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:text-white hover:bg-red transition-all duration-300 ease-linear"
           >
             <MdKeyboardArrowLeft size={20} />
           </button>

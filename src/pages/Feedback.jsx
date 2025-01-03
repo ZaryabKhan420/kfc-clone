@@ -37,7 +37,7 @@ const Feedback = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
     clearErrors,
     control,
@@ -163,19 +163,23 @@ const Feedback = () => {
   };
 
   const handlePhoneChange = (e) => {
-    let value = e.target.value.replace(/\D/g, "");
-    if (value.length > 10) {
-      value = value.slice(0, 10);
+    let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    if (!value.startsWith("3")) {
+      value = "3" + value; // Ensure the first digit is always "3"
     }
+    if (value.length > 10) {
+      value = value.slice(0, 10); // Limit to 10 digits
+    }
+
     if (value.length < 10) {
       setError("phone", {
         type: "Length Error",
         message: "Phone Number must be exactly 10 digits",
       });
-    }
-    if (value.length === 10) {
+    } else {
       clearErrors("phone");
     }
+
     e.target.value = value;
   };
 
@@ -188,7 +192,7 @@ const Feedback = () => {
         <div className="flex justify-between items-start heading flex-wrap">
           <button
             onClick={() => navigate("/")}
-            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:bg-red transition-all duration-300 ease-linear"
+            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:text-white hover:bg-red transition-all duration-300 ease-linear"
           >
             <MdKeyboardArrowLeft size={20} />
           </button>
@@ -234,6 +238,7 @@ const Feedback = () => {
                   label="Phone Number (3xxxxxxxxx)"
                   required={true}
                   placeholder=""
+                  defaultValue={3}
                   isPhoneInput={true}
                   {...register("phone", {
                     required: "Phone Number is required",
@@ -399,7 +404,7 @@ const Feedback = () => {
         <div className="flex justify-center items-center">
           <Button
             className="bg-red text-white w-full md:w-[30%] lg:w-[20%] py-6"
-            disabled={false}
+            disabled={!isValid}
             type="submit"
           >
             SUBMIT

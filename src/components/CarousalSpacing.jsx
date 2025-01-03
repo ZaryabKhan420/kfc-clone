@@ -8,7 +8,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { PrimaryHeading } from ".";
+import { PrimaryHeading } from "./index";
+
+import { FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight } from "react-icons/fa6";
 
 export function CarouselSpacing() {
   const content = [
@@ -62,15 +65,13 @@ export function CarouselSpacing() {
         {content.map((data, index) => (
           <CarouselItem
             key={data.id}
-            className="px-6 md:basis-1/3 lg:basis-1/4 xl:basis-1/5  hover:translate-y-[-10px] transition-all duration-300 ease-linear py-5"
+            className="px-6 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5 hover:translate-y-[-10px] transition-all duration-300 ease-linear py-5"
           >
             <Link
               to={"/menu"}
               className="relative bg-white dark:bg-bgButtonDark rounded-tl-full rounded-tr-full rounded-bl-full cursor-pointer"
             >
-              <div
-                className={`w-60 h-56  flex flex-col justify-start items-center overflow-hidden m-auto bg-white dark:bg-bgButtonDark rounded-tl-full rounded-tr-full rounded-bl-full cursor-pointer`}
-              >
+              <div className="w-60 h-56  flex flex-col justify-start items-center overflow-hidden m-auto bg-white dark:bg-bgButtonDark rounded-tl-full rounded-tr-full rounded-bl-full cursor-pointer">
                 <img
                   src={data.img}
                   alt={data.title}
@@ -88,13 +89,26 @@ export function CarouselSpacing() {
                   spanClass="w-12 left-[50%] translate-x-[-50%]"
                 />
               </div>
-              <div className="absolute bottom-2 right-2 w-4 h-4 rounded-full bg-bgLight dark:bg-black"></div>
+              <div className="absolute bottom-2 md:right-10 lg:right-4 2xl:right-0 w-4 h-4 rounded-full bg-bgLight dark:bg-black"></div>
             </Link>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="text-white bg-red" />
-      <CarouselNext className="text-white bg-red" />
+
+      <button className="absolute top-[50%] translate-y-[-50%] left-[-2%] w-6 h-6 bg-red rounded-full flex justify-center items-center cursor-pointer">
+        <FaAngleLeft
+          className="text-bgLight dark:text-bgButtonDark"
+          size={15}
+        />
+        <CarouselPrevious className="absolute top-[50%] left-0 w-full h-full bg-transparent border-none text-transparent" />
+      </button>
+      <button className="absolute top-[50%]  translate-y-[-50%] right-[-2%] w-6 h-6 bg-red rounded-full flex justify-center items-center cursor-pointer">
+        <FaAngleRight
+          className="text-bgLight dark:text-bgButtonDark"
+          size={15}
+        />
+        <CarouselNext className="absolute top-[50%] right-0 w-full h-full bg-transparent border-none text-transparent" />
+      </button>
     </Carousel>
   );
 }

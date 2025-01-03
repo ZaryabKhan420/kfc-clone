@@ -96,12 +96,12 @@ const Footer = () => {
             );
           })}
         </div>
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex justify-start sm:justify-center items-center gap-2 flex-wrap">
           <img src={"/download (1).png"} alt="Apple Store" loading="lazy" />
           <img src={"/download (2).png"} alt="Play Store" loading="lazy" />
         </div>
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col-reverse sm:flex-row justify-between items-start">
         <h1 className="font-bold">2024 KDC. All rights reserved</h1>
         <div className="flex flex-col justify-start items-start">
           <h1 className="text-red font-bold">Powered by</h1>

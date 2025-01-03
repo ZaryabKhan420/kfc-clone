@@ -174,7 +174,7 @@ const Careers = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
     clearErrors,
     control,
@@ -187,19 +187,23 @@ const Careers = () => {
   };
 
   const handlePhoneChange = (e) => {
-    let value = e.target.value.replace(/\D/g, "");
-    if (value.length > 10) {
-      value = value.slice(0, 10);
+    let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    if (!value.startsWith("3")) {
+      value = "3" + value; // Ensure the first digit is always "3"
     }
+    if (value.length > 10) {
+      value = value.slice(0, 10); // Limit to 10 digits
+    }
+
     if (value.length < 10) {
       setError("phone", {
         type: "Length Error",
         message: "Phone Number must be exactly 10 digits",
       });
-    }
-    if (value.length === 10) {
+    } else {
       clearErrors("phone");
     }
+
     e.target.value = value;
   };
 
@@ -415,6 +419,7 @@ const Careers = () => {
                 label="Phone Number (3xxxxxxxxx)"
                 placeholder=""
                 required={true}
+                defaultValue={3}
                 isPhoneInput="true"
                 {...register("phone", {
                   required: "Phone Number is required",
@@ -753,8 +758,9 @@ const Careers = () => {
           <Button
             className="w-full md:w-[50%] mx-auto bg-red text-white"
             type="submit"
+            disabled={!isValid}
           >
-            Apply
+            APPLY
           </Button>
         </div>
       </div>

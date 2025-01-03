@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { RiMenu2Line } from "react-icons/ri";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
+import { PickupComponent } from "./index";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isPickUpOpen, setIsPickUpOpen] = useState(false);
+  const [showSecondDiv, setShowSecondDiv] = useState(false);
   const [theme, setTheme] = useState("light");
   const navigate = useNavigate();
 
@@ -45,6 +48,30 @@ const Header = () => {
     content.classList.add(theme);
   }, [theme]);
 
+  useEffect(() => {
+    const content = document.documentElement;
+
+    // Handle page scrolling behavior
+    if (isPickUpOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+      // Wait 50ms before showing the second div
+      const timeout = setTimeout(() => {
+        setShowSecondDiv(true);
+      }, 50);
+      return () => {
+        clearTimeout(timeout);
+        document.body.style.overflow = "auto"; // Restore scroll when the modal is closed
+      };
+    } else {
+      setShowSecondDiv(false); // Reset immediately when closing
+      document.body.style.overflow = "auto"; // Enable scrolling
+    }
+  }, [isPickUpOpen]);
+
+  const handlePickup = () => {
+    setIsPickUpOpen(true);
+  };
+
   const handleSideBar = () => {
     setIsSidebarOpen(!isSidebarOpen);
     document.body.style.overflow = isSidebarOpen ? "auto" : "hidden"; // Disable scroll when sidebar is open
@@ -52,7 +79,28 @@ const Header = () => {
 
   return (
     <div className="relative">
-      <div className="container bg-white dark:bg-black text-textLight dark:text-textDark py-3 md:py-5 lg:py-8 sticky">
+      {/* pickup component  */}
+      <div
+        className={`fixed top-0 left-0 w-[100vw] h-[100vh] bg-black/50 dark:bg-white/50 transition-all duration-300 ease-linear flex justify-center items-center z-50 ${
+          isPickUpOpen ? "block overflow-y-hidden" : "hidden"
+        }`}
+      >
+        <div
+          className={`fixed ${
+            showSecondDiv ? "top-[50%]" : "top-[-100%]"
+          } left-[50%] translate-x-[-50%] translate-y-[-50%] transition-all duration-500 ease-linear`}
+        >
+          <PickupComponent
+            isPickUpOpen={isPickUpOpen}
+            setIsPickUpOpen={setIsPickUpOpen}
+          />
+        </div>
+      </div>
+      <div
+        className={`container bg-white dark:bg-black text-textLight dark:text-textDark py-3 md:py-5 lg:py-8 sticky z-40 ${
+          isPickUpOpen && "!bg-black/0 dark:!bg-white/0"
+        }`}
+      >
         {/* Bucket icon  */}
         <div className="block lg:hidden">
           <button className="absolute mt-12 right-5 md:right-12 cursor-pointer">
@@ -66,7 +114,7 @@ const Header = () => {
         </div>
 
         {/* Actual Header  */}
-        <div className="sticky w-full flex justify-between items-center">
+        <div className={`sticky w-full flex justify-between items-center`}>
           <div className="flex justify-between items-center gap-3 w-full md:w-fit md:justify-start">
             <button onClick={handleSideBar}>
               <RiMenu2Line className="text-2xl md:text-3xl" />
@@ -82,7 +130,13 @@ const Header = () => {
           </div>
 
           <div className="hidden lg:flex justify-start items-center gap-2 ml-5 w-full">
-            <Button className="border-2 border-red bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-semibold lg:font-bold text-sm flex justify-center items-center gap-1 ">
+            <Button
+              className={`border-2 bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-semibold lg:font-bold text-sm flex justify-center items-center gap-1 ${
+                isPickUpOpen
+                  ? "border-bgButtonLight dark:border-bgButtonDark"
+                  : "border-red"
+              }`}
+            >
               <div className="w-6">
                 <img
                   src="/Delivery.img.png"
@@ -93,7 +147,16 @@ const Header = () => {
               </div>
               DELIVERY
             </Button>
-            <Button className="bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-semibold lg:font-bold text-sm flex justify-center items-center gap-1 ">
+            <Button
+              className={`bg-bgButtonLight border-2 dark:bg-bgButtonDark text-textLight dark:text-textDark font-semibold lg:font-bold text-sm flex justify-center items-center gap-1 ${
+                isPickUpOpen
+                  ? "border-red"
+                  : "border-bgButtonLight dark:border-bgButtonDark"
+              }`}
+              onClick={() => {
+                handlePickup();
+              }}
+            >
               <div className="w-6">
                 <img
                   src="/pickup.img.png"
@@ -124,7 +187,13 @@ const Header = () => {
 
         {/* Buttons to be shown only on small devices */}
         <div className="flex justify-center items-center lg:hidden gap-2 mt-8 ">
-          <Button className="border-2 border-red bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-bold text-[11px] sm:text-sm flex justify-center items-center gap-1">
+          <Button
+            className={`border-2 border-red bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-bold text-[11px] sm:text-sm flex justify-center items-center gap-1 ${
+              isPickUpOpen
+                ? "border-bgButtonLight dark:border-bgButtonDark"
+                : "border-red"
+            }`}
+          >
             <div className="w-5">
               <img
                 src="/Delivery.img.png"
@@ -135,7 +204,16 @@ const Header = () => {
             </div>
             DELIVERY
           </Button>
-          <Button className="bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-bold text-[11px] sm:text-sm flex justify-center items-center gap-1 ">
+          <Button
+            className={`bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-bold text-[11px] sm:text-sm flex justify-center items-center gap-1 ${
+              isPickUpOpen
+                ? "border-red"
+                : "border-bgButtonLight dark:border-bgButtonDark"
+            }`}
+            onClick={() => {
+              handlePickup();
+            }}
+          >
             <div className="w-5">
               <img
                 src="/pickup.img.png"
@@ -206,6 +284,7 @@ const Header = () => {
               key={page.id}
               to={page.path}
               className="w-full flex justify-start items-center gap-4 font-semibold text-md py-3 group hover:bg-[#A3A3A3] px-2"
+              onClick={() => set(isSidebarOpen(false))}
             >
               <div className="group-hover:translate-x-[-6px] transition-all duration-300 flex justify-start items-center gap-4">
                 <img
@@ -227,6 +306,7 @@ const Header = () => {
               key={page.id}
               to={page.path}
               className="w-full hover:bg-[#A3A3A3] group py-3 px-3 "
+              onClick={() => set(isSidebarOpen(false))}
             >
               <h1 className="group-hover:translate-x-[-10px] transition-all duration-300">
                 {page.title}

@@ -17,33 +17,29 @@ function App() {
   ].includes(location.pathname);
 
   return (
-    <div className="font-Roboto Condensed bg-bgLight dark:bg-bgButtonDark">
-      <div>
-        <ErrorBoundaryWrapper>
-          <Suspense fallback={<div>Loading Header...</div>}>
+    <ErrorBoundaryWrapper>
+      <Suspense fallback={<div>Loading</div>}>
+        <div className="font-Roboto Condensed bg-bgLight dark:bg-bgButtonDark">
+          <div>
             <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md dark:bg-black">
               {/* Add padding and shadow for better visibility */}
               <Header />
             </div>
-          </Suspense>
-        </ErrorBoundaryWrapper>
-      </div>
-      {/* Add top padding to prevent content overlap */}
-      <div className="pt-[60px]">
-        <Outlet />
-      </div>
-      {showFooter && (
-        <div className="bg-bgLight dark:bg-bgButtonDark">
-          <ErrorBoundaryWrapper>
-            <Suspense fallback={<div>Loading Footer...</div>}>
+          </div>
+          {/* Add top padding to prevent content overlap */}
+          <div className="pt-[60px]">
+            <Outlet />
+          </div>
+          {showFooter && (
+            <div className="bg-bgLight dark:bg-bgButtonDark">
               <div className="container">
                 <Footer />
               </div>
-            </Suspense>
-          </ErrorBoundaryWrapper>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </Suspense>
+    </ErrorBoundaryWrapper>
   );
 }
 

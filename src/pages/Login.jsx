@@ -7,18 +7,22 @@ import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [phoneValue, setPhoneValue] = useState("");
+  const [phoneValue, setPhoneValue] = useState("3");
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, "");
-    if (value.length <= 10) {
-      setPhoneValue(value);
-      if (value.length < 10) {
-        setError("Phone number must be at least 10 digits.");
-      } else if (value.length === 10) {
-        setError(""); // Clear error when exactly 10 digits are entered
-      }
+    let value = e.target.value.replace(/[^0-9]/g, "");
+    if (!value.startsWith("3")) {
+      value = "3" + value;
+    }
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+    setPhoneValue(value);
+    if (value.length < 10) {
+      setError("Phone number must be exactly 10 digits.");
+    } else if (value.length === 10) {
+      setError("");
     }
   };
 
@@ -33,7 +37,7 @@ const Login = () => {
         <div className="bg-white dark:bg-bgButtonDark rounded-md w-full md:max-w-[80%] px-5 pt-5 pb-5 md:pb-0 mx-auto">
           <button
             onClick={() => navigate("/")}
-            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:bg-red transition-all duration-300 ease-linear"
+            className="w-7 h-7 rounded-full border-2 border-red flex justify-center items-center hover:text-white hover:bg-red transition-all duration-300 ease-linear"
           >
             <MdKeyboardArrowLeft size={20} />
           </button>
@@ -52,6 +56,7 @@ const Login = () => {
                 label="Phone Number (3xxxxxxxxx)"
                 required={false}
                 isPhoneInput={true}
+                // defaultValue={3}
                 value={phoneValue}
                 onChange={(e) => handleChange(e)}
               />
