@@ -4,14 +4,24 @@ import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { PickupComponent } from "./index";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTheme, setTheme } from "@/features/theme/themeSlice.js";
+import { setOrderType } from "@/features/order/orderSlice.js";
+import {
+  selectOrderType,
+  selectOrderDetails,
+} from "@/features/order/orderSlice.js";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPickUpOpen, setIsPickUpOpen] = useState(false);
   const [showSecondDiv, setShowSecondDiv] = useState(false);
-  const [order, setOrder] = useState("");
-  const [theme, setTheme] = useState("light");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const theme = useSelector(selectTheme);
+  const orderType = useSelector(selectOrderType);
+  const orderDetails = useSelector(selectOrderDetails);
 
   const specialPages = [
     {
@@ -82,6 +92,7 @@ const Header = () => {
       theme: "colored",
     });
     setIsPickUpOpen(true);
+    dispatch(setOrderType("pickup"));
   };
 
   const handleSideBar = () => {
@@ -105,8 +116,6 @@ const Header = () => {
           <PickupComponent
             isPickUpOpen={isPickUpOpen}
             setIsPickUpOpen={setIsPickUpOpen}
-            order={order}
-            setOrder={setOrder}
           />
         </div>
       </div>
@@ -143,20 +152,21 @@ const Header = () => {
             </Link>
           </div>
 
-          {order !== "" && (
+          {(orderType && orderDetails.name) !== "" && (
             <div className="absolute top-0 left-[50%] lg:left-[70%] xl:left-[50%] translate-x-[-50%] flex flex-col justify-start items-start py-2 pl-3 pr-5 sm:w-64 bg-[#F5FAFF] border-2 border-[#DFEFFF] dark:border-bgButtonDark dark:bg-bgButtonDark rounded-md">
-              <h1 className="text-sm font-bold">Pickup From</h1>
-              <p>{order}</p>
+              <h1 className="text-sm font-bold capitalize">{orderType}</h1>
+              <p>{orderDetails.name}</p>
             </div>
           )}
 
           <div className="hidden lg:flex justify-start items-center gap-2 ml-5 w-full">
             <Button
               className={`border-2 bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-semibold lg:font-bold text-sm flex justify-center items-center gap-1 ${
-                isPickUpOpen
+                orderType === "pickup"
                   ? "border-bgButtonLight dark:border-bgButtonDark"
                   : "border-red"
               }`}
+              onClick={() => dispatch(setOrderType("delivery"))}
             >
               <div className="w-6">
                 <img
@@ -170,7 +180,7 @@ const Header = () => {
             </Button>
             <Button
               className={`bg-bgButtonLight border-2 dark:bg-bgButtonDark text-textLight dark:text-textDark font-semibold lg:font-bold text-sm flex justify-center items-center gap-1 ${
-                isPickUpOpen
+                orderType === "pickup"
                   ? "border-red"
                   : "border-bgButtonLight dark:border-bgButtonDark"
               }`}
@@ -210,10 +220,11 @@ const Header = () => {
         <div className="flex justify-center items-center lg:hidden gap-2 mt-8 ">
           <Button
             className={`border-2 border-red bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-bold text-[11px] sm:text-sm flex justify-center items-center gap-1 ${
-              isPickUpOpen
+              orderType === "pickup"
                 ? "border-bgButtonLight dark:border-bgButtonDark"
                 : "border-red"
             }`}
+            onClick={() => dispatch(setOrderType("delivery"))}
           >
             <div className="w-5">
               <img
@@ -226,8 +237,8 @@ const Header = () => {
             DELIVERY
           </Button>
           <Button
-            className={`bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-bold text-[11px] sm:text-sm flex justify-center items-center gap-1 ${
-              isPickUpOpen
+            className={`border-2 bg-bgButtonLight dark:bg-bgButtonDark text-textLight dark:text-textDark font-bold text-[11px] sm:text-sm flex justify-center items-center gap-1 ${
+              orderType === "pickup"
                 ? "border-red"
                 : "border-bgButtonLight dark:border-bgButtonDark"
             }`}
@@ -277,7 +288,7 @@ const Header = () => {
           <div className="dark:bg-black bg-white rounded-full flex">
             <Button
               onClick={() => {
-                setTheme("light"); // Update state directly
+                dispatch(setTheme("light"));
               }}
               className={`text-textLight dark:text-white bg-transparent rounded-full border-none outline-none cursor-pointer transition-all duration-200 ${
                 theme === "light" ? "bg-red text-white" : ""
@@ -287,7 +298,7 @@ const Header = () => {
             </Button>
             <Button
               onClick={() => {
-                setTheme("dark"); // Update state directly
+                dispatch(setTheme("dark"));
               }}
               className={`text-textLight dark:text-white bg-transparent rounded-full border-none outline-none cursor-pointer transition-all duration-200 ${
                 theme === "dark" ? "bg-red text-white" : ""
@@ -305,7 +316,7 @@ const Header = () => {
               key={page.id}
               to={page.path}
               className="w-full flex justify-start items-center gap-4 font-semibold text-md py-3 group hover:bg-[#A3A3A3] px-2"
-              onClick={() => set(isSidebarOpen(false))}
+              onClick={() => setIsSidebarOpen(false)}
             >
               <div className="group-hover:translate-x-[-6px] transition-all duration-300 flex justify-start items-center gap-4">
                 <img
@@ -327,7 +338,7 @@ const Header = () => {
               key={page.id}
               to={page.path}
               className="w-full hover:bg-[#A3A3A3] group py-3 px-3 "
-              onClick={() => set(isSidebarOpen(false))}
+              onClick={() => setIsSidebarOpen(false)}
             >
               <h1 className="group-hover:translate-x-[-10px] transition-all duration-300">
                 {page.title}

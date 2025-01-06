@@ -1,4 +1,4 @@
-import React, { StrictMode, Suspense } from "react";
+import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -8,7 +8,9 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-
+import { ClerkProvider } from "@clerk/clerk-react";
+import { Store, persistor } from "./store/Store.js";
+import { PersistGate } from "redux-persist/integration/react";
 import {
   Home,
   About,
@@ -25,6 +27,14 @@ import {
   Login,
   Bucket,
 } from "./pages/index";
+import { Provider } from "react-redux";
+
+// Import your Publishable Key
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
+}
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,6 +59,12 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={Store}>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+          <RouterProvider router={router} />
+        </ClerkProvider>
+      </PersistGate>
+    </Provider>
   </StrictMode>
 );

@@ -4,11 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { FaGoogle } from "react-icons/fa";
-
+import { useSignIn } from "@clerk/clerk-react";
 const Login = () => {
   const navigate = useNavigate();
   const [phoneValue, setPhoneValue] = useState("3");
   const [error, setError] = useState("");
+
+  const handleGoogleLogin = async () => {};
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+  };
 
   const handleChange = (e) => {
     let value = e.target.value.replace(/[^0-9]/g, "");
@@ -24,11 +30,6 @@ const Login = () => {
     } else if (value.length === 10) {
       setError("");
     }
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log(e);
   };
 
   return (
@@ -68,7 +69,10 @@ const Login = () => {
               >
                 LOGIN
               </Button>
-              <Button className="bg-red text-white w-full py-6 text-sm -my-4 flex justify-between items-center">
+              <Button
+                className="bg-red text-white w-full py-6 text-sm -my-4 flex justify-between items-center"
+                onClick={() => handleGoogleLogin()}
+              >
                 <FaGoogle />
                 LOGIN WITH GOOGLE
                 <div></div>

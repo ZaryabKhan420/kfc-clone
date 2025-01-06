@@ -2,15 +2,17 @@ import React, { useState, useMemo } from "react";
 import { Button } from "./ui/button";
 import { IoClose } from "react-icons/io5";
 import { PickUpCard } from "./index";
-
-const PickupComponent = ({
-  isPickUpOpen,
-  setIsPickUpOpen,
-  order,
-  setOrder,
-}) => {
+import { setOrderDetails } from "@/features/order/orderSlice.js";
+import { useDispatch } from "react-redux";
+const PickupComponent = ({ isPickUpOpen, setIsPickUpOpen }) => {
   const [search, setSearch] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState({
+    value: "",
+    name: "",
+    location: "",
+  });
+
+  const dispatch = useDispatch();
 
   const places = [
     {
@@ -242,11 +244,16 @@ const PickupComponent = ({
           <div className="flex justify-center items-center my-5">
             <Button
               className="text-md rounded-sm bg-red text-white"
-              disabled={selectedOption === ""}
+              disabled={selectedOption.value === ""}
               onClick={() => {
                 setIsPickUpOpen(false);
-                setOrder(selectedOption);
-                setSelectedOption("");
+                dispatch(
+                  setOrderDetails({
+                    name: selectedOption.name,
+                    location: selectedOption.location,
+                  })
+                );
+                setSelectedOption({ value: "", name: "", location: "" });
               }}
             >
               Start Your Order
