@@ -31,9 +31,10 @@ import { Provider } from "react-redux";
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const FRONTEND_API = import.meta.env.VITE_CLERK_FRONTEND_API;
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key");
+if (!PUBLISHABLE_KEY || !FRONTEND_API) {
+  throw new Error("Missing Clerk keys in environment variables");
 }
 
 const router = createBrowserRouter(
@@ -59,12 +60,16 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Provider store={Store}>
-      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
-        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      afterSignOutUrl="/"
+      frontendApi={FRONTEND_API}
+    >
+      <Provider store={Store}>
+        <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
           <RouterProvider router={router} />
-        </ClerkProvider>
-      </PersistGate>
-    </Provider>
+        </PersistGate>
+      </Provider>
+    </ClerkProvider>
   </StrictMode>
 );

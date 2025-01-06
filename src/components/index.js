@@ -18,6 +18,7 @@ import Select from "./Select";
 import PickupComponent from "./PickupComponent";
 import LocationCard from "./LocationCard";
 import PickUpCard from "./PickUpCard";
+import { OTP } from "./OTP";
 export {
   Header,
   Footer,
@@ -39,4 +40,5 @@ export {
   LocationCard,
   PickupComponent,
   PickUpCard,
+  OTP,
 };
