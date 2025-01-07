@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import WithAuthProtection from "./withAuthProtection";
+import WithAuthProtection from "./WithAuthProtection";
 import HomeCarousal from "./HomeCarousal";
 import PrimaryHeading from "./PrimaryHeading";
 import { CarouselSpacing } from "./CarousalSpacing";
