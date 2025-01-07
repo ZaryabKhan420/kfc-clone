@@ -72,24 +72,22 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Update the phone value
     const updatedPhone = `+92` + phoneValue;
     try {
-      console.log(updatedPhone); // Log the updated phone number
-      await sendOtp(updatedPhone); // Call API to send OTP to the user
-      setShowOtpPopover(true); // Show OTP popover after OTP is sent
+      await sendOtp(updatedPhone);
+      setShowOtpPopover(true);
     } catch (error) {
       console.error("Phone Login Error:", error);
     }
   };
 
   const handleOtpVerification = async () => {
+    const updatedPhone = `+92` + phoneValue;
     try {
-      const response = await verifyOtp(phoneValue, otp);
-      console.log("OTP Verified:", response.message); // Handle success message
-      setShowOtpPopover(false); // Hide OTP popover
-      setShowDetailsPopover(true); // Show details popover after OTP verification
+      const response = await verifyOtp(updatedPhone, otp);
+      console.log("OTP Verified:", response.message);
+      setShowOtpPopover(false);
+      setShowDetailsPopover(true);
     } catch (error) {
       console.error("OTP Verification Error:", error);
     }
