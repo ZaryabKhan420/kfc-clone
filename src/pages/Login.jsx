@@ -81,6 +81,7 @@ const Login = () => {
   };
 
   const handleOtpVerification = async () => {
+    console.log(phoneValue, otp);
     try {
       const response = await verifyOtp(phoneValue, otp);
       console.log("OTP Verified:", response.message); // Handle success message

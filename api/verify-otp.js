@@ -1,32 +1,48 @@
-module.exports = async (req, res) => {
+module.exports.handler = async (event, context) => {
   // Check if request is POST
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ message: "Method not allowed" }),
+    };
   }
 
-  const { phoneNumber, otp } = req.body;
+  const { phoneNumber, otp } = JSON.parse(event.body);
 
   // Ensure phone number and OTP are provided
   if (!phoneNumber || !otp) {
-    return res
-      .status(400)
-      .json({ message: "Phone number and OTP are required" });
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Phone number and OTP are required",
+      }),
+    };
   }
 
   try {
-    // Retrieve the OTP sent to the user (for demo purposes, we are using memory)
-    const savedOtp = req.session.otp;
+    // Retrieve OTP (for demo purposes, this should be replaced with secure storage)
+    const savedOtp = process.env.SAVED_OTP || ""; // For production, store OTP securely (e.g., database)
 
     // Compare OTPs
     if (savedOtp === otp) {
-      return res.status(200).json({ message: "OTP verified successfully" });
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: "OTP verified successfully" }),
+      };
     } else {
-      return res.status(400).json({ message: "Invalid OTP" });
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: "Invalid OTP" }),
+      };
     }
   } catch (error) {
     console.error("Error verifying OTP:", error);
-    return res
-      .status(500)
-      .json({ message: "Failed to verify OTP", error: error.message });
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: "Failed to verify OTP",
+        error: error.message,
+      }),
+    };
   }
 };
