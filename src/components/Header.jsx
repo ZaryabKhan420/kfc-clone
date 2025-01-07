@@ -11,7 +11,6 @@ import {
   selectOrderType,
   selectOrderDetails,
 } from "@/features/order/orderSlice.js";
-import { UserButton, useUser } from "@clerk/clerk-react";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,7 +22,6 @@ const Header = () => {
   const theme = useSelector(selectTheme);
   const orderType = useSelector(selectOrderType);
   const orderDetails = useSelector(selectOrderDetails);
-  const { isSignedIn, user, isLoaded } = useUser();
 
   const specialPages = [
     {
@@ -209,16 +207,13 @@ const Header = () => {
               loading="lazy"
               className="w-10 hidden lg:block cursor-pointer"
             />
-            {!isSignedIn ? (
-              <Button
-                className="bg-red text-textDark"
-                onClick={() => navigate("/login")}
-              >
-                LOGIN
-              </Button>
-            ) : (
-              <UserButton />
-            )}
+
+            <Button
+              className="bg-red text-textDark"
+              onClick={() => navigate("/login")}
+            >
+              LOGIN
+            </Button>
           </div>
         </div>
 
