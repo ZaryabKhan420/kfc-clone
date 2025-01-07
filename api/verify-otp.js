@@ -9,7 +9,6 @@ module.exports.handler = async (event, context) => {
 
   const { phoneNumber, otp } = JSON.parse(event.body);
 
-  // Ensure phone number and OTP are provided
   if (!phoneNumber || !otp) {
     return {
       statusCode: 400,
@@ -20,8 +19,7 @@ module.exports.handler = async (event, context) => {
   }
 
   try {
-    // Retrieve OTP (for demo purposes, this should be replaced with secure storage)
-    const savedOtp = process.env.SAVED_OTP || ""; // For production, store OTP securely (e.g., database)
+    const savedOtp = localStorage.getItem("otp");
 
     // Compare OTPs
     if (savedOtp === otp) {
