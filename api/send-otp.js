@@ -1,8 +1,8 @@
 const twilio = require("twilio");
 
 const client = new twilio(
-  "AC6b1357c9d18bd3818f25b7d1070ac02e",
-  "4c4101e4d4ab9da4419388ce08aa0363"
+  process.env.VITE_TWILIO_ACCOUNT_SID,
+  process.env.VITE_TWILIO_AUTH_TOKEN
 );
 
 module.exports.handler = async (event, context) => {
