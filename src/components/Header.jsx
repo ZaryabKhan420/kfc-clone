@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RiMenu2Line } from "react-icons/ri";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { PickupComponent } from "./index";
+import { PickupComponent, DeliveryComponent } from "./index";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTheme, setTheme } from "@/features/theme/themeSlice.js";
@@ -15,6 +15,7 @@ import {
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isPickUpOpen, setIsPickUpOpen] = useState(false);
+  const [isDeliveryOpen, setIsDeliveryOpen] = useState(false);
   const [showSecondDiv, setShowSecondDiv] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const Header = () => {
     const content = document.documentElement;
 
     // Handle page scrolling behavior
-    if (isPickUpOpen) {
+    if (isPickUpOpen || isDeliveryOpen) {
       document.body.style.overflow = "hidden"; // Disable scrolling
       // Wait 50ms before showing the second div
       const timeout = setTimeout(() => {
@@ -78,7 +79,7 @@ const Header = () => {
       setShowSecondDiv(false); // Reset immediately when closing
       document.body.style.overflow = "auto"; // Enable scrolling
     }
-  }, [isPickUpOpen]);
+  }, [isPickUpOpen, isDeliveryOpen]);
 
   const handlePickup = () => {
     toast.info("Enable your Location for Nearby", {
@@ -92,7 +93,20 @@ const Header = () => {
       theme: "colored",
     });
     setIsPickUpOpen(true);
-    dispatch(setOrderType("pickup"));
+  };
+
+  const handleDelivery = () => {
+    toast.error("Enable your Location for Nearby", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+    setIsDeliveryOpen(true);
   };
 
   const handleSideBar = () => {
@@ -110,12 +124,30 @@ const Header = () => {
       >
         <div
           className={`fixed ${
-            showSecondDiv ? "top-[50%]" : "top-[-100%]"
+            isPickUpOpen && showSecondDiv ? "top-[50%]" : "top-[-100%]"
           } left-[50%] translate-x-[-50%] translate-y-[-50%] transition-all duration-500 ease-linear`}
         >
           <PickupComponent
             isPickUpOpen={isPickUpOpen}
             setIsPickUpOpen={setIsPickUpOpen}
+          />
+        </div>
+      </div>
+
+      {/* delivery component  */}
+      <div
+        className={`fixed top-0 left-0 w-[100vw] h-[100vh] bg-black/50 dark:bg-white/50 transition-all duration-300 ease-linear flex justify-center items-center z-50 ${
+          isDeliveryOpen ? "block overflow-y-hidden" : "hidden"
+        }`}
+      >
+        <div
+          className={`fixed ${
+            isDeliveryOpen && showSecondDiv ? "top-[50%]" : "top-[-100%]"
+          } left-[50%] translate-x-[-50%] translate-y-[-50%] transition-all duration-500 ease-linear`}
+        >
+          <DeliveryComponent
+            isDeliveryOpen={isDeliveryOpen}
+            setIsDeliveryOpen={setIsDeliveryOpen}
           />
         </div>
       </div>
@@ -166,7 +198,7 @@ const Header = () => {
                   ? "border-bgButtonLight dark:border-bgButtonDark"
                   : "border-red"
               }`}
-              onClick={() => dispatch(setOrderType("delivery"))}
+              onClick={() => handleDelivery()}
             >
               <div className="w-6">
                 <img
@@ -225,7 +257,7 @@ const Header = () => {
                 ? "border-bgButtonLight dark:border-bgButtonDark"
                 : "border-red"
             }`}
-            onClick={() => dispatch(setOrderType("delivery"))}
+            onClick={() => handleDelivery()}
           >
             <div className="w-5">
               <img

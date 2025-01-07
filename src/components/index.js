@@ -19,6 +19,7 @@ import PickupComponent from "./PickupComponent";
 import LocationCard from "./LocationCard";
 import PickUpCard from "./PickUpCard";
 import { OTP } from "./OTP";
+import DeliveryComponent from "./DeliveryComponent";
 export {
   Header,
   Footer,
@@ -41,4 +42,5 @@ export {
   PickupComponent,
   PickUpCard,
   OTP,
+  DeliveryComponent,
 };

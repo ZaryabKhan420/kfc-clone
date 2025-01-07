@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Button } from "./ui/button";
 import { IoClose } from "react-icons/io5";
 import { PickUpCard } from "./index";
-import { setOrderDetails } from "@/features/order/orderSlice.js";
+import { setOrderDetails, setOrderType } from "@/features/order/orderSlice.js";
 import { useDispatch } from "react-redux";
 const PickupComponent = ({ isPickUpOpen, setIsPickUpOpen }) => {
   const [search, setSearch] = useState("");
@@ -196,7 +196,7 @@ const PickupComponent = ({ isPickUpOpen, setIsPickUpOpen }) => {
 
   return (
     <div className="container">
-      <div className="relative rounded-[1.5rem] p-2 min-h-[90vh] w-[95vw] sm:w-[30rem] bg-white dark:bg-bgButtonDark z-[999]">
+      <div className="relative rounded-[1.5rem] p-4 h-[90vh] w-[95vw] sm:w-[30rem] bg-white dark:bg-bgButtonDark z-[999]">
         <div className="absolute top-0 left-[50%] translate-x-[-50%] flex gap-2 ">
           <div className="w-4 h-5 bg-red"></div>
           <div className="w-4 h-5 bg-red"></div>
@@ -217,47 +217,51 @@ const PickupComponent = ({ isPickUpOpen, setIsPickUpOpen }) => {
             <IoClose />
           </Button>
         </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full p-2 outline-none border border-gray-200 bg-bgButtonLight dark:bg-bgButtonDark"
-          />
-          <div className="w-full overflow-y-auto h-[62vh]">
-            {filteredPlaces?.map((data) => {
-              return (
-                <PickUpCard
-                  key={data.id}
-                  title={data.title}
-                  description={data.description}
-                  openingTime={data.openingTime}
-                  closingTime={data.closingTime}
-                  location={data.location}
-                  selectedOption={selectedOption}
-                  setSelectedOption={setSelectedOption}
-                />
-              );
-            })}
-          </div>
-          <div className="flex justify-center items-center my-5">
-            <Button
-              className="text-md rounded-sm bg-red text-white"
-              disabled={selectedOption.value === ""}
-              onClick={() => {
-                setIsPickUpOpen(false);
-                dispatch(
-                  setOrderDetails({
-                    name: selectedOption.name,
-                    location: selectedOption.location,
-                  })
+        <div className="h-[70vh] sm:h-[80vh] overflow-y-auto">
+          <div>
+            <input
+              type="text"
+              placeholder="Search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full p-2 outline-none border border-gray-200 bg-bgButtonLight dark:bg-bgButtonDark"
+            />
+            <div className="w-full overflow-y-auto h-[50vh] sm:h-[62vh]">
+              {filteredPlaces?.map((data) => {
+                return (
+                  <PickUpCard
+                    key={data.id}
+                    title={data.title}
+                    description={data.description}
+                    openingTime={data.openingTime}
+                    closingTime={data.closingTime}
+                    location={data.location}
+                    selectedOption={selectedOption}
+                    setSelectedOption={setSelectedOption}
+                  />
                 );
-                setSelectedOption({ value: "", name: "", location: "" });
-              }}
-            >
-              Start Your Order
-            </Button>
+              })}
+            </div>
+            <div className="flex justify-center items-center my-5">
+              <Button
+                className="text-md rounded-sm bg-red text-white"
+                disabled={selectedOption.value === ""}
+                onClick={() => {
+                  setIsPickUpOpen(false);
+                  dispatch(setOrderType("pickup"));
+                  dispatch(
+                    setOrderDetails({
+                      name: selectedOption.name,
+                      location: selectedOption.location,
+                    })
+                  );
+                  setSearch("");
+                  setSelectedOption({ value: "", name: "", location: "" });
+                }}
+              >
+                Start Your Order
+              </Button>
+            </div>
           </div>
         </div>
       </div>
